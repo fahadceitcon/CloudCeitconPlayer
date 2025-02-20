@@ -1,0 +1,341 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.WeatherControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             mc:Ignorable="d" 
+             Background="Transparent">
+    <Grid x:Name="gridMain" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.ColumnSpan="3" 
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                VerticalAlignment="Top" HorizontalAlignment="Center" 
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleCornerRadius, Mode=OneWay}">
+            <TextBlock Margin="5,5,5,5" Height="40" TextAlignment="Center" TextWrapping="NoWrap" 
+                FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleFontFamily, Mode=OneWay}"
+                Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleForeground, Mode=OneWay}"
+                FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleSize, Mode=OneWay}" 
+                FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleFontWeight, Mode=OneWay}"
+                FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.TitleFontStyle, Mode=OneWay}"
+                Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=TitleText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBlock>
+        </Border>
+
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Margin="5"
+              Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=ShowFirstDay, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="imgWeatherDay1" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,0" Width="150" Height="110"></Image>
+
+            <Border  Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtDayOfWeek1" Width="207" Height="32" TextAlignment="Center" Text="DayOfWeek" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtWeather1" Width="170" Height="40" TextAlignment="Center" TextWrapping="Wrap" Text="Weather Description" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="High" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtHigh1" TextAlignment="Right" Text="80" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="Low" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtLow1" TextAlignment="Right" Text="40" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontStyle, Mode=OneWay}"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Margin="5"
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=ShowSecondDay, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="imgWeatherDay2" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,0" Width="150" Height="110"></Image>
+
+            <Border  Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtDayOfWeek2" Width="207" Height="32" TextAlignment="Center" Text="DayOfWeek" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtWeather2" Width="170" Height="40" TextAlignment="Center" TextWrapping="Wrap" Text="Weather Description" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="High" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtHigh2" TextAlignment="Right" Text="80" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="Low" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtLow2" TextAlignment="Right" Text="40" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontStyle, Mode=OneWay}"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Margin="5"
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=ShowThirdDay, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="imgWeatherDay3" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,0" Width="150" Height="110"></Image>
+
+            <Border  Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtDayOfWeek3" Width="207" Height="32" TextAlignment="Center" Text="DayOfWeek" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.DayTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtWeather3" Width="170" Height="40" TextAlignment="Center" TextWrapping="Wrap" Text="Weather Description" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.WeatherTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="High" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="3" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtHigh3" TextAlignment="Right" Text="80" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.HeightValueFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextCornerRadius, Mode=OneWay}">
+                <TextBlock TextAlignment="Left" Text="Low" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowTextFontStyle, Mode=OneWay}"/>
+            </Border>
+
+            <Border Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
+                Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueIsVisible, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBackground, Mode=OneWay}"
+                BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderBrush, Mode=OneWay}"
+                BorderThickness="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueBorderThickness, Mode=OneWay}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueCornerRadius, Mode=OneWay}">
+                <TextBlock x:Name="txtLow3" TextAlignment="Right" Text="40" 
+                   FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontFamily, Mode=OneWay}"
+                   Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueForeground, Mode=OneWay}"
+                   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueSize, Mode=OneWay}" 
+                   FontWeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontWeight, Mode=OneWay}"
+                   FontStyle="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=WeatherSettings.LowValueFontStyle, Mode=OneWay}"/>
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>

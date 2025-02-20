@@ -1,0 +1,7 @@
+﻿<Application x:Class="Ceitcon_Player.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Ceitcon_Player"
+             xmlns:util="clr-namespace:Ceitcon_Designer.Utilities;assembly=Ceitcon_Designer"
+             StartupUri="View/Main.xaml">
+</Application>

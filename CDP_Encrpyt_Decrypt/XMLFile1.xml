@@ -1,0 +1,620 @@
+﻿<Project>
+	<Id>9f3b2aa4-3aa8-4291-99e7-1ef46531030e</Id>
+	<Information>
+		<Name>Project_2bbaf0</Name>
+		<Creator />
+		<MainContact />
+		<Owner />
+		<Phone>___ - __________</Phone>
+		<Interval>60</Interval>
+	</Information>
+	<Resolution>
+		<Id>04b3adc7-94fc-433b-b087-9edf4ed56df1</Id>
+		<Name>Full HD (1920x1080)</Name>
+		<Width>1920</Width>
+		<Height>1080</Height>
+		<IsInitial>True</IsInitial>
+	</Resolution>
+	<Monitor>
+		<Id>fee2fb41-b2f8-40c9-868b-08b67b15146f</Id>
+		<Name>Only 1</Name>
+		<Horizontal>1</Horizontal>
+		<Vertical>1</Vertical>
+		<IsInitial>True</IsInitial>
+	</Monitor>
+	<Orientation>Angle0</Orientation>
+	<Regions>
+		<Region>
+			<Id>daaa41c1-fc14-412b-9a5f-16801877d209</Id>
+			<Name>Region_daaa41</Name>
+			<Width>1920</Width>
+			<Height>1080</Height>
+			<X>0</X>
+			<Y>0</Y>
+			<Slides>
+				<Slide>
+					<Id>2a26ab6d-2017-4f47-89cf-833b6dffeadf</Id>
+					<Name>Slide_2a26ab</Name>
+					<Duration>10</Duration>
+					<Forever>False</Forever>
+					<Layers>
+						<Layer>
+							<Id>3cf8627c-9d33-46e8-a6ae-4b015c468b8b</Id>
+							<Name>Layer_3cf862</Name>
+							<ZIndex>1</ZIndex>
+							<IsVisible>True</IsVisible>
+							<IsLocked>False</IsLocked>
+							<Controls>
+								<Control Type="Image">
+									<Id>b84cce75-8415-478a-bb8d-58edab664661</Id>
+									<Name>Image_b84cce</Name>
+									<Width>1913.33333333333</Width>
+									<Height>972</Height>
+									<X>0</X>
+									<Y>0</Y>
+									<Margion>0,0,6.66666666666993,108</Margion>
+									<Opacity>1</Opacity>
+									<Background />
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Left</HorizontalAlignment>
+									<VerticalAlignment>Top</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontSize>0</FontSize>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>Image</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>Image</Type>
+									<ZIndex>1</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>d9467564-23b6-44aa-bb87-3ef5e308a7c1</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>beaa31d3-01c6-422d-9543-6755ef42a916.jpg</Content>
+											<ContentSize>40722</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+								<Control Type="Ticker">
+									<Id>152225b1-1218-4359-a97d-4f793185cc34</Id>
+									<Name>Ticker_152225</Name>
+									<Width>1920</Width>
+									<Height>98</Height>
+									<X>5</X>
+									<Y>972</Y>
+									<Margion>5,972,-5,10</Margion>
+									<Opacity>1</Opacity>
+									<Background />
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Left</HorizontalAlignment>
+									<VerticalAlignment>Top</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontFamily>Arial</FontFamily>
+									<FontSize>100</FontSize>
+									<Foreground>
+										<SolidColorBrush>
+											<Color>#FFFFFF00</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Foreground>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>15</Duration>
+									<Type>Ticker</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>Ticker</Type>
+									<ZIndex>3</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>41da01c0-c3ea-4741-a9b8-247e0b326a31</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>Change text in tab Playlist Set Content</Content>
+											<ContentSize>0</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+							</Controls>
+						</Layer>
+					</Layers>
+				</Slide>
+				<Slide>
+					<Id>84ed7662-5eb8-4e9b-9109-d977fcc05e7d</Id>
+					<Name>Slide_84ed76</Name>
+					<Duration>10</Duration>
+					<Forever>False</Forever>
+					<Layers>
+						<Layer>
+							<Id>9bfa5df1-a672-403c-85a0-e9b09fec1f4d</Id>
+							<Name>Layer_9bfa5d</Name>
+							<ZIndex>1</ZIndex>
+							<IsVisible>True</IsVisible>
+							<IsLocked>False</IsLocked>
+							<Controls>
+								<Control Type="DateTime">
+									<Id>8a9ea9ec-3ac1-4990-a3a5-cfec21a0f6ff</Id>
+									<Name>DateTime_8a9ea9</Name>
+									<Width>500</Width>
+									<Height>100</Height>
+									<X>738</X>
+									<Y>793.24</Y>
+									<Margion>738,793.24,682,186.76</Margion>
+									<Opacity>1</Opacity>
+									<Background>
+										<SolidColorBrush>
+											<Color>#00FFFFFF</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Background>
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Stretch</HorizontalAlignment>
+									<VerticalAlignment>Stretch</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontFamily>Arial</FontFamily>
+									<FontSize>50</FontSize>
+									<Foreground>
+										<SolidColorBrush>
+											<Color>#FFFFFF00</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Foreground>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>DateTime</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>DateTime</Type>
+									<ZIndex>1</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>8efae384-c1bb-4603-9123-a518157bd5d7</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>1/3/2024 10:26:36 AM</Content>
+											<ContentSize>0</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+								<Control Type="Image">
+									<Id>a95f6d9e-56ec-4bd3-8dfb-99cc16c41ff9</Id>
+									<Name>Image_a95f6d</Name>
+									<Width>1059.2</Width>
+									<Height>658.4</Height>
+									<X>443.6</X>
+									<Y>44.4399999999998</Y>
+									<Margion>443.6,44.4399999999998,417.2,377.16</Margion>
+									<Opacity>1</Opacity>
+									<Background />
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Left</HorizontalAlignment>
+									<VerticalAlignment>Top</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontSize>0</FontSize>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>Image</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>Image</Type>
+									<ZIndex>2</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>fd37a842-7321-4737-a8d9-fb2f6f2d3a11</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>278d70b2-d5e7-4aec-9a90-dfac5983d59c.jpeg</Content>
+											<ContentSize>94679</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+							</Controls>
+						</Layer>
+					</Layers>
+				</Slide>
+				<Slide>
+					<Id>49165af5-7b7b-4aa0-a67a-79814da155cf</Id>
+					<Name>Slide_49165a</Name>
+					<Duration>10</Duration>
+					<Forever>False</Forever>
+					<Layers>
+						<Layer>
+							<Id>8e27d3b5-66a9-48b8-a1e9-a8f7910f3f7b</Id>
+							<Name>Layer_8e27d3</Name>
+							<ZIndex>1</ZIndex>
+							<IsVisible>True</IsVisible>
+							<IsLocked>False</IsLocked>
+							<Controls>
+								<Control Type="Text">
+									<Id>71cfba3f-b3b8-4419-8e36-5dd8819c4cd8</Id>
+									<Name>Text_71cfba</Name>
+									<Width>1021.6</Width>
+									<Height>100</Height>
+									<X>434</X>
+									<Y>486.04</Y>
+									<Margion>434,486.04,464.400000000001,493.96</Margion>
+									<Opacity>1</Opacity>
+									<Background>
+										<SolidColorBrush>
+											<Color>#00FFFFFF</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Background>
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Stretch</HorizontalAlignment>
+									<VerticalAlignment>Stretch</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontFamily>Arial</FontFamily>
+									<FontSize>50</FontSize>
+									<Foreground>
+										<SolidColorBrush>
+											<Color>#FFFFFF00</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Foreground>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>Text</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>Text</Type>
+									<ZIndex>1</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>1b6a03be-73ea-42f5-9db2-e824b26524eb</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>Change text in tab Playlist Set Content</Content>
+											<ContentSize>0</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+								<Control Type="DateTime">
+									<Id>dd21aec3-8ce3-4579-8086-5c05a3907138</Id>
+									<Name>DateTime_dd21ae</Name>
+									<Width>500</Width>
+									<Height>100</Height>
+									<X>715.599999999999</X>
+									<Y>722.84</Y>
+									<Margion>715.599999999999,722.84,704.400000000001,257.16</Margion>
+									<Opacity>1</Opacity>
+									<Background>
+										<SolidColorBrush>
+											<Color>#00FFFFFF</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Background>
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Stretch</HorizontalAlignment>
+									<VerticalAlignment>Stretch</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontFamily>Arial</FontFamily>
+									<FontSize>50</FontSize>
+									<Foreground>
+										<SolidColorBrush>
+											<Color>#FFFFFF00</Color>
+											<Opacity>1</Opacity>
+										</SolidColorBrush>
+									</Foreground>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>DateTime</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>DateTime</Type>
+									<ZIndex>2</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>07ba0a2f-d399-4571-8e2f-bab9c1e7948f</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>1/3/2024 10:28:18 AM</Content>
+											<ContentSize>0</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+							</Controls>
+						</Layer>
+					</Layers>
+				</Slide>
+				<Slide>
+					<Id>296ee380-5f7a-4da3-9b2f-c8796db8a271</Id>
+					<Name>Slide_296ee3</Name>
+					<Duration>10</Duration>
+					<Forever>False</Forever>
+					<Layers>
+						<Layer>
+							<Id>88336475-10c2-4144-b3e8-94e0a380f7c2</Id>
+							<Name>Layer_883364</Name>
+							<ZIndex>1</ZIndex>
+							<IsVisible>True</IsVisible>
+							<IsLocked>False</IsLocked>
+							<Controls>
+								<Control Type="Live">
+									<Id>f1ecea03-9bc2-4218-82da-e5aa77f9eb20</Id>
+									<Name>Live_f1ecea</Name>
+									<Width>1911.2</Width>
+									<Height>1072</Height>
+									<X>0</X>
+									<Y>0</Y>
+									<Margion>0,0,8.80000000000018,7.99999999999864</Margion>
+									<Opacity>1</Opacity>
+									<Background />
+									<BorderBrush />
+									<BorderThickness>0,0,0,0</BorderThickness>
+									<CornerRadius>0,0,0,0</CornerRadius>
+									<HorizontalAlignment>Left</HorizontalAlignment>
+									<VerticalAlignment>Top</VerticalAlignment>
+									<Stretch>Fill</Stretch>
+									<HorizontalFlip>False</HorizontalFlip>
+									<VerticalFlip>False</VerticalFlip>
+									<Rotate>0</Rotate>
+									<FontSize>0</FontSize>
+									<FontWeight>Normal</FontWeight>
+									<FontStyle>Normal</FontStyle>
+									<TextDecorationText>Normal</TextDecorationText>
+									<InvertDirection>False</InvertDirection>
+									<Duration>0</Duration>
+									<Type>Live</Type>
+									<MediaAccountId />
+									<MediaPageName />
+									<FlowDirection>False</FlowDirection>
+									<DateTimeFormat>0</DateTimeFormat>
+									<CustomDateTimeFormat />
+									<ItemCount>0</ItemCount>
+									<Type>Live</Type>
+									<ZIndex>1</ZIndex>
+									<IsVisible>True</IsVisible>
+									<IsLocked>False</IsLocked>
+									<Playlists>
+										<Playlist>
+											<Id>5471a51c-69bb-459e-b1ca-131fda5c2d56</Id>
+											<Name>Set Content</Name>
+											<StartTime>0</StartTime>
+											<Duration>0</Duration>
+											<Forever>True</Forever>
+											<Type>SetContent</Type>
+											<Content>https://cdn.flowplayer.com/a30bd6bc-f98b-47bc-abf5-97633d4faea0/hls/de3f6ca7-2db3-4689-8160-0f574a5996ad/playlist.m3u8</Content>
+											<ContentSize>0</ContentSize>
+										</Playlist>
+									</Playlists>
+								</Control>
+							</Controls>
+						</Layer>
+					</Layers>
+				</Slide>
+			</Slides>
+		</Region>
+	</Regions>
+	<Alerts>
+		<Alert>
+			<Id>e7bf2d32-c0b0-4c2e-bd03-ad7de140c1c6</Id>
+			<Name>Alert_e7bf2d</Name>
+			<Type>Global</Type>
+			<Controls>
+				<Control Type="Live">
+					<Id>93591f01-6eff-4cc5-87ae-5c0d80d67c9c</Id>
+					<Name>Live_93591f</Name>
+					<Width>915.2</Width>
+					<Height>607.2</Height>
+					<X>510.8</X>
+					<Y>95.1999999999998</Y>
+					<Margion>510.8,95.1999999999998,494,377.6</Margion>
+					<Opacity>1</Opacity>
+					<Background />
+					<BorderBrush />
+					<BorderThickness>0,0,0,0</BorderThickness>
+					<CornerRadius>0,0,0,0</CornerRadius>
+					<HorizontalAlignment>Left</HorizontalAlignment>
+					<VerticalAlignment>Top</VerticalAlignment>
+					<Stretch>Fill</Stretch>
+					<HorizontalFlip>False</HorizontalFlip>
+					<VerticalFlip>False</VerticalFlip>
+					<Rotate>0</Rotate>
+					<FontSize>0</FontSize>
+					<FontWeight>Normal</FontWeight>
+					<FontStyle>Normal</FontStyle>
+					<TextDecorationText>Normal</TextDecorationText>
+					<InvertDirection>False</InvertDirection>
+					<Duration>0</Duration>
+					<Type>Live</Type>
+					<MediaAccountId />
+					<MediaPageName />
+					<Type>Live</Type>
+					<ZIndex>0</ZIndex>
+					<IsVisible>True</IsVisible>
+					<IsLocked>False</IsLocked>
+					<Playlists>
+						<Playlist>
+							<Id>4bd6199b-c4fb-460e-aeed-ff61adcc0750</Id>
+							<Name>Set Content</Name>
+							<StartTime>0</StartTime>
+							<Duration>0</Duration>
+							<Forever>True</Forever>
+							<Type>SetContent</Type>
+							<Content>https://cdn.flowplayer.com/a30bd6bc-f98b-47bc-abf5-97633d4faea0/hls/de3f6ca7-2db3-4689-8160-0f574a5996ad/playlist.m3u8</Content>
+							<ContentSize>0</ContentSize>
+							<IsMuted>False</IsMuted>
+						</Playlist>
+					</Playlists>
+				</Control>
+				<Control Type="Text">
+					<Id>77f8c4b8-fd1c-4e52-b4a1-0c562297d646</Id>
+					<Name>Text_77f8c4</Name>
+					<Width>915.2</Width>
+					<Height>172</Height>
+					<X>511.373333333333</X>
+					<Y>792.8</Y>
+					<Margion>511.373333333333,792.8,493.426666666666,115.2</Margion>
+					<Opacity>1</Opacity>
+					<Background>
+						<SolidColorBrush>
+							<Color>#00FFFFFF</Color>
+							<Opacity>1</Opacity>
+						</SolidColorBrush>
+					</Background>
+					<BorderBrush />
+					<BorderThickness>0,0,0,0</BorderThickness>
+					<CornerRadius>0,0,0,0</CornerRadius>
+					<HorizontalAlignment>Center</HorizontalAlignment>
+					<VerticalAlignment>Center</VerticalAlignment>
+					<Stretch>Fill</Stretch>
+					<HorizontalFlip>False</HorizontalFlip>
+					<VerticalFlip>False</VerticalFlip>
+					<Rotate>0</Rotate>
+					<FontFamily>Arial</FontFamily>
+					<FontSize>50</FontSize>
+					<Foreground>
+						<SolidColorBrush>
+							<Color>#FFFFFF00</Color>
+							<Opacity>1</Opacity>
+						</SolidColorBrush>
+					</Foreground>
+					<FontWeight>Normal</FontWeight>
+					<FontStyle>Normal</FontStyle>
+					<TextDecorationText>Normal</TextDecorationText>
+					<InvertDirection>False</InvertDirection>
+					<Duration>0</Duration>
+					<Type>Text</Type>
+					<MediaAccountId />
+					<MediaPageName />
+					<Type>Text</Type>
+					<ZIndex>0</ZIndex>
+					<IsVisible>True</IsVisible>
+					<IsLocked>False</IsLocked>
+					<Playlists>
+						<Playlist>
+							<Id>9dae57d8-58ad-4c65-866a-d4e4ff819ea9</Id>
+							<Name>Set Content</Name>
+							<StartTime>0</StartTime>
+							<Duration>0</Duration>
+							<Forever>True</Forever>
+							<Type>SetContent</Type>
+							<Content>Change text in tab Playlist Set Content</Content>
+							<ContentSize>0</ContentSize>
+							<IsMuted>False</IsMuted>
+						</Playlist>
+					</Playlists>
+				</Control>
+			</Controls>
+			<Slots>
+				<Slot>
+					<Id>1b3da04e-1b15-42de-a10a-957746fa8faa</Id>
+					<Name>Slot_1b3da0</Name>
+					<StartTime>637768020600000000</StartTime>
+					<Location>
+						<Id>1</Id>
+						<Country>Saudi Arabia</Country>
+						<City>Al Qunfudhah</City>
+						<Latitude>19.1264</Latitude>
+						<Longnitude>41.0789</Longnitude>
+					</Location>
+					<Duration>60</Duration>
+				</Slot>
+			</Slots>
+		</Alert>
+	</Alerts>
+</Project>

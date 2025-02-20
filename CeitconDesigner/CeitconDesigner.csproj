@@ -1,0 +1,1357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD02EC44-52EB-49BD-8948-8A43B785C0E7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ceitcon_Designer</RootNamespace>
+    <AssemblyName>Ceitcon_Designer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Ceitcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ColorBox, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f971124b2576acfc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ColorBox\ColorBox.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="presentationframework.aero2" />
+    <Reference Include="Syncfusion.Compression.Base, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Compression.Base.16.3.0.29\lib\net451\Syncfusion.Compression.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.16.3.0.29\lib\net451\Syncfusion.Licensing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChart.Base, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.OfficeChart.Base.16.3.0.29\lib\net451\Syncfusion.OfficeChart.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChartToImageConverter.Wpf, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.OfficeChartToImageConverter.WinForms.16.3.0.29\lib\net451\Syncfusion.OfficeChartToImageConverter.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Pdf.Wpf.16.3.0.29\lib\net451\Syncfusion.Pdf.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Presentation.Base, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Presentation.Wpf.16.3.0.29\lib\net451\Syncfusion.Presentation.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.PresentationToPdfConverter.Base, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.PresentationToPdfConverter.Wpf.16.3.0.29\lib\net451\Syncfusion.PresentationToPdfConverter.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.SfChart.WPF.16.3.0.29\lib\net451\Syncfusion.SfChart.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.FixedDocumentViewers, Version=2018.1.220.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.FixedDocumentViewers.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonView, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.RibbonView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RichTextBoxUI, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.RichTextBoxUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ScheduleView, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Core, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Fixed, Version=2018.1.220.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.Fixed.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Flow, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.Html, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.Html.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.MsRichTextBoxXaml, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.MsRichTextBoxXaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.OpenXml, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.Pdf, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.Rtf, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.Rtf.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.FormatProviders.Xaml, Version=2014.3.1202.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Telerik\Telerik.Windows.Documents.FormatProviders.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.17\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\TextBoxEnterKeyUpdateBehavior.cs" />
+    <Compile Include="Controls\AirlineLogoControl.xaml.cs">
+      <DependentUpon>AirlineLogoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AlertControl.xaml.cs">
+      <DependentUpon>AlertControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AlertDesignerControl.xaml.cs">
+      <DependentUpon>AlertDesignerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NetworkTreePlayerGroupControl.xaml.cs">
+      <DependentUpon>NetworkTreePlayerGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PercentageHightControl.xaml.cs">
+      <DependentUpon>PercentageHightControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProjectsControl.xaml.cs">
+      <DependentUpon>ProjectsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProofOfPlayControl.xaml.cs">
+      <DependentUpon>ProofOfPlayControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReportControl.xaml.cs">
+      <DependentUpon>ReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RichTextEditorControl.xaml.cs">
+      <DependentUpon>RichTextEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SpecialCellControl.xaml.cs">
+      <DependentUpon>SpecialCellControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CornerControl.xaml.cs">
+      <DependentUpon>CornerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGridSettingsControl.xaml.cs">
+      <DependentUpon>DataGridSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataSourceControl.xaml.cs">
+      <DependentUpon>DataSourceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DurationControl.xaml.cs">
+      <DependentUpon>DurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MarginControl.xaml.cs">
+      <DependentUpon>MarginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RTServerControl.xaml.cs">
+      <DependentUpon>RTServerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NetworkControl.xaml.cs">
+      <DependentUpon>NetworkControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NetworkTreeControl.xaml.cs">
+      <DependentUpon>NetworkTreeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NetworkTreePlayerControl.xaml.cs">
+      <DependentUpon>NetworkTreePlayerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PercentageControl.xaml.cs">
+      <DependentUpon>PercentageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PermissionControl.xaml.cs">
+      <DependentUpon>PermissionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlayersControl.xaml.cs">
+      <DependentUpon>PlayersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlaylistControl.xaml.cs">
+      <DependentUpon>PlaylistControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PreviewControl.xaml.cs">
+      <DependentUpon>PreviewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SchedulerControl.xaml.cs">
+      <DependentUpon>SchedulerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\HomeControl.xaml.cs">
+      <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TickerControl.xaml.cs">
+      <DependentUpon>TickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimeFilterControl.xaml.cs">
+      <DependentUpon>TimeFilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WeatherControl.xaml.cs">
+      <DependentUpon>WeatherControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WeatherSettingsControl.xaml.cs">
+      <DependentUpon>WeatherSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BoolToBrushConverter.cs" />
+    <Compile Include="Converters\BoolToIndexConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ImageCacheConverter.cs" />
+    <Compile Include="Converters\LeftMarginMultiplierConverter.cs" />
+    <Compile Include="Converters\MultiValueConverter.cs" />
+    <Compile Include="Converters\NullToBoolConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\PropertyToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringToFontFamilyConverter.cs" />
+    <Compile Include="Converters\ValueConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Utilities\CeitconServerHelper.cs" />
+    <Compile Include="Utilities\CommandHandler.cs" />
+    <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="Utilities\MoveThumb.cs" />
+    <Compile Include="Utilities\PasswordBoxHelper.cs" />
+    <Compile Include="Utilities\PasswordHelper.cs" />
+    <Compile Include="Utilities\PixelRuler.cs" />
+    <Compile Include="Utilities\ResizeThumb.cs" />
+    <Compile Include="Utilities\SQLiteHelper.cs" />
+    <Compile Include="Utilities\PPTHelper.cs" />
+    <Compile Include="Utilities\TypeUtilities.cs" />
+    <Compile Include="Utilities\VideoPlayer.cs" />
+    <Compile Include="Utilities\WebDownload.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service References\CeitconServerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Controls\DesignerControl.xaml.cs">
+      <DependentUpon>DesignerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InformationControl.xaml.cs">
+      <DependentUpon>InformationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProofOfPlaySettingsWindow.xaml.cs">
+      <DependentUpon>ProofOfPlaySettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RichTextEditorWindow.xaml.cs">
+      <DependentUpon>RichTextEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SpecialCellWindow.xaml.cs">
+      <DependentUpon>SpecialCellWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DataGridSettings.xaml.cs">
+      <DependentUpon>DataGridSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Monitor.xaml.cs">
+      <DependentUpon>Monitor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NetworkTreeWindow.xaml.cs">
+      <DependentUpon>NetworkTreeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OpenProject.xaml.cs">
+      <DependentUpon>OpenProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlayerWindow.xaml.cs">
+      <DependentUpon>PlayerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Preview.xaml.cs">
+      <DependentUpon>Preview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RegionsControl.xaml.cs">
+      <DependentUpon>RegionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Resolution.xaml.cs">
+      <DependentUpon>Resolution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimeFilterWindow.xaml.cs">
+      <DependentUpon>TimeFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WeatherSettings.xaml.cs">
+      <DependentUpon>WeatherSettings.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\AirlineLogoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AlertControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AlertDesignerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NetworkTreePlayerGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PercentageHightControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProjectsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProofOfPlayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReportControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RichTextEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SpecialCellControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CornerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGridSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataSourceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MarginControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RTServerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NetworkControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NetworkTreeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NetworkTreePlayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PercentageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PermissionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PlayersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlaylistControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PreviewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SchedulerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeFilterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WeatherControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WeatherSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Color.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ComboBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Hyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ListBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\MenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\RepeatButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Thumb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DesignerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\InformationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProofOfPlaySettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RichTextEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SpecialCellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DataGridSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Monitor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NetworkTreeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OpenProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Preview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RegionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Resolution.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimeFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WeatherSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Service References\CeitconServerService\Ceitcon_Designer.CeitconServerService.RemoteFileInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CeitconServerService\Ceitcon_Designer.CeitconServerService.SyncResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CeitconServerService\Ceitcon_Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CeitconServerService\Microsoft.ServiceModel.Samples.wsdl" />
+    <None Include="Service References\CeitconServerService\Microsoft.ServiceModel.Samples.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CeitconServerService\service.wsdl" />
+    <None Include="Service References\CeitconServerService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CeitconServerService\System.IO.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CeitconServerService\System.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\backgroundButton_Playlist_LeftPart.png" />
+    <Resource Include="Images\backgroundButton_Playlist_RightPart.png" />
+    <Resource Include="Images\backgroundButton_Playlist_StretchPart.png" />
+    <Resource Include="Images\backgroundDesignHost.png" />
+    <Resource Include="Images\backgroundRegionsDesign.png" />
+    <Resource Include="Images\iconButton_AddDependantItemAfter.png" />
+    <Resource Include="Images\iconButton_AddLayer.png" />
+    <Resource Include="Images\iconButton_AddRegion_Fill.png" />
+    <Resource Include="Images\iconButton_AddRegion_QuadSplit.png" />
+    <Resource Include="Images\iconButton_AddRegion_SplitHorizontal.png" />
+    <Resource Include="Images\iconButton_AddRegion_SplitVertical.png" />
+    <Resource Include="Images\iconButton_AddSlide.png" />
+    <Resource Include="Images\iconButton_Copy.png" />
+    <Resource Include="Images\iconButton_Copy_Hover.png" />
+    <Resource Include="Images\iconButton_Paste.png" />
+    <Resource Include="Images\iconButton_Paste_Hover.png" />
+    <Resource Include="Images\iconButton_Play.png" />
+    <Resource Include="Images\iconButton_Redo.png" />
+    <Resource Include="Images\iconButton_Redo_Hover.png" />
+    <Resource Include="Images\iconButton_RemoveLayer.png" />
+    <Resource Include="Images\iconButton_RemoveSlide.png" />
+    <Resource Include="Images\iconButton_RemoveSlide_Campaign.png" />
+    <Resource Include="Images\iconButton_Stop.png" />
+    <Resource Include="Images\iconButton_Undo.png" />
+    <Resource Include="Images\iconButton_Undo_Hover.png" />
+    <Resource Include="Images\iconButton_Window_Close.png" />
+    <Resource Include="Images\iconButton_Window_Maximize.png" />
+    <Resource Include="Images\iconButton_Window_Minimize.png" />
+    <Resource Include="Images\iconButton_Window_Restore.png" />
+    <Resource Include="Images\iconButton_ZoomIn.png" />
+    <Resource Include="Images\iconButton_ZoomOut.png" />
+    <Resource Include="Images\iconCeitcon.png" />
+    <Resource Include="Images\iconCheckBox.png" />
+    <Resource Include="Images\iconControlDragThumb.png" />
+    <Resource Include="Images\iconControlVisibility_Hidden.png" />
+    <Resource Include="Images\iconControlVisibility_Visible.png" />
+    <Resource Include="Images\iconFacebookControl.png" />
+    <Resource Include="Images\iconFacebookControl_Active.png" />
+    <Resource Include="Images\iconFacebookLike.png" />
+    <Resource Include="Images\iconFacebookLikesControl.png" />
+    <Resource Include="Images\iconFacebookLikesControl_Active.png" />
+    <Resource Include="Images\iconFacebookLikeSmall.png" />
+    <Resource Include="Images\iconFacebook_NoAvatar.png" />
+    <Resource Include="Images\iconHAlignment_Left.png" />
+    <Resource Include="Images\iconHAlignment_Left_Selected.png" />
+    <Resource Include="Images\iconHAlignment_Right.png" />
+    <Resource Include="Images\iconHAlignment_Right_Selected.png" />
+    <Resource Include="Images\iconHAlignment_Stretch.png" />
+    <Resource Include="Images\iconHAlignment_Stretch_Selected.png" />
+    <Resource Include="Images\iconImageControl.png" />
+    <Resource Include="Images\iconImageControl_Active.png" />
+    <Resource Include="Images\iconInstagramControl.png" />
+    <Resource Include="Images\iconInstagramControl_Active.png" />
+    <Resource Include="Images\iconLayer_Collapsed.png" />
+    <Resource Include="Images\iconLayer_Expanded.png" />
+    <Resource Include="Images\iconLocked.png" />
+    <Resource Include="Images\iconMainMenu.png" />
+    <Resource Include="Images\iconMenuItem_AddNewPlaylistItem.png" />
+    <Resource Include="Images\iconPlaylistItem_AddAfter.png" />
+    <Resource Include="Images\iconPlaylistItem_AddDependency.png" />
+    <Resource Include="Images\iconPlaylistItem_Collapse.png" />
+    <Resource Include="Images\iconPlaylistItem_Remove.png" />
+    <Resource Include="Images\iconPlaylistItem_RemoveDependency.png" />
+    <Resource Include="Images\iconRegionControl.png" />
+    <Resource Include="Images\iconRegionControl_Active.png" />
+    <Resource Include="Images\iconRichTextControl.png" />
+    <Resource Include="Images\iconRichTextControl_Active.png" />
+    <Resource Include="Images\iconTabItem_GeneralInformation.png" />
+    <Resource Include="Images\iconTabItem_Layers.png" />
+    <Resource Include="Images\iconTabItem_RegionsAndCampaigns.png" />
+    <Resource Include="Images\iconTickerControl.png" />
+    <Resource Include="Images\iconTickerControl_Active.png" />
+    <Resource Include="Images\iconTwitterControl.png" />
+    <Resource Include="Images\iconTwitterControl_Active.png" />
+    <Resource Include="Images\iconTwitter_Likes.png" />
+    <Resource Include="Images\iconTwitter_Retweet.png" />
+    <Resource Include="Images\iconUnlocked.png" />
+    <Resource Include="Images\iconVAlignment_Bottom.png" />
+    <Resource Include="Images\iconVAlignment_Bottom_Selected.png" />
+    <Resource Include="Images\iconVAlignment_Stretch.png" />
+    <Resource Include="Images\iconVAlignment_Stretch_Selected.png" />
+    <Resource Include="Images\iconVAlignment_Top.png" />
+    <Resource Include="Images\iconVAlignment_Top_Selected.png" />
+    <Resource Include="Images\iconVideoControl.png" />
+    <Resource Include="Images\iconVideoControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_ZoomFull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconProperties_Border.png" />
+    <Resource Include="Images\iconProperties_Corner.png" />
+    <Resource Include="Images\iconProperties_Margin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconYoutubeControl.png" />
+    <Resource Include="Images\iconYoutubeControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ceitcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_ArrowsBack.png" />
+    <Resource Include="Images\iconButton_ArrowsNext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_PlayFull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconSocialMediaControl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconSocialMediaControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconPercentage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconPixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Designer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Alignment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButtonShowGrid.png" />
+    <Resource Include="Images\iconButtonShowGrid_Active.png" />
+    <Resource Include="Images\iconButtonSnapToGrid.png" />
+    <Resource Include="Images\iconButtonSnapToGrid_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconYoutube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconLive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconLiveControl.png" />
+    <Resource Include="Images\iconLiveControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Scheduler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_AddScheduler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_HomeAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_HomeOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CeitconData\CeitconData.csproj">
+      <Project>{4e722fe3-b293-4839-a7ac-b76d8a197a0d}</Project>
+      <Name>CeitconData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTSPControl\RTSPControl.csproj">
+      <Project>{3093b4ec-3afe-417e-a6af-b8746336d023}</Project>
+      <Name>RTSPControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StreamPlayerControl\StreamPlayerControl.csproj">
+      <Project>{ad063357-e96c-4920-9a05-d34633058162}</Project>
+      <Name>StreamPlayerControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Network.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconNetwork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_NetworkAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_NetworkDelete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTreeViewMinus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTreeViewPlus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconAlertControl.png" />
+    <Resource Include="Images\iconAlertControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconGifAnimControl.png" />
+    <Resource Include="Images\iconGifAnimControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconAlert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Alert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_SourceAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_SourceClear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_ResolutionAdd.png" />
+    <Resource Include="Images\iconButton_ResolutionEdit.png" />
+    <Resource Include="Images\iconButton_ResolutionRemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_MonitorAdd.png" />
+    <Resource Include="Images\iconButton_MonitorEdit.png" />
+    <Resource Include="Images\iconButton_MonitorRemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_RTM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Player.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconFAlignment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconFAlignment_Selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconDataGridControl.png" />
+    <Resource Include="Images\iconDataGridControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconAirplan.png" />
+    <Resource Include="Images\iconButton_Cancel.png" />
+    <Resource Include="Images\iconButton_OK.png" />
+    <Resource Include="Images\iconButton_Send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_SearchWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_DataSource.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_MoveDown.png" />
+    <Resource Include="Images\iconButton_MoveUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Repository.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconWeather.png" />
+    <Resource Include="Images\iconWeatherControl.png" />
+    <Resource Include="Images\iconWeatherControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Weather\200d.png" />
+    <Resource Include="Images\Weather\200n.png" />
+    <Resource Include="Images\Weather\201d.png" />
+    <Resource Include="Images\Weather\201n.png" />
+    <Resource Include="Images\Weather\202d.png" />
+    <Resource Include="Images\Weather\202n.png" />
+    <Resource Include="Images\Weather\210d.png" />
+    <Resource Include="Images\Weather\210n.png" />
+    <Resource Include="Images\Weather\211d.png" />
+    <Resource Include="Images\Weather\211n.png" />
+    <Resource Include="Images\Weather\212d.png" />
+    <Resource Include="Images\Weather\212n.png" />
+    <Resource Include="Images\Weather\221d.png" />
+    <Resource Include="Images\Weather\221n.png" />
+    <Resource Include="Images\Weather\230d.png" />
+    <Resource Include="Images\Weather\230n.png" />
+    <Resource Include="Images\Weather\231d.png" />
+    <Resource Include="Images\Weather\231n.png" />
+    <Resource Include="Images\Weather\232d.png" />
+    <Resource Include="Images\Weather\232n.png" />
+    <Resource Include="Images\Weather\300d.png" />
+    <Resource Include="Images\Weather\300n.png" />
+    <Resource Include="Images\Weather\301d.png" />
+    <Resource Include="Images\Weather\301n.png" />
+    <Resource Include="Images\Weather\302d.png" />
+    <Resource Include="Images\Weather\302n.png" />
+    <Resource Include="Images\Weather\310d.png" />
+    <Resource Include="Images\Weather\310n.png" />
+    <Resource Include="Images\Weather\311d.png" />
+    <Resource Include="Images\Weather\311n.png" />
+    <Resource Include="Images\Weather\312d.png" />
+    <Resource Include="Images\Weather\312n.png" />
+    <Resource Include="Images\Weather\321d.png" />
+    <Resource Include="Images\Weather\321n.png" />
+    <Resource Include="Images\Weather\500d.png" />
+    <Resource Include="Images\Weather\500n.png" />
+    <Resource Include="Images\Weather\501d.png" />
+    <Resource Include="Images\Weather\501n.png" />
+    <Resource Include="Images\Weather\502d.png" />
+    <Resource Include="Images\Weather\502n.png" />
+    <Resource Include="Images\Weather\503d.png" />
+    <Resource Include="Images\Weather\503n.png" />
+    <Resource Include="Images\Weather\504d.png" />
+    <Resource Include="Images\Weather\504n.png" />
+    <Resource Include="Images\Weather\511d.png" />
+    <Resource Include="Images\Weather\511n.png" />
+    <Resource Include="Images\Weather\520d.png" />
+    <Resource Include="Images\Weather\520n.png" />
+    <Resource Include="Images\Weather\521d.png" />
+    <Resource Include="Images\Weather\521n.png" />
+    <Resource Include="Images\Weather\522d.png" />
+    <Resource Include="Images\Weather\522n.png" />
+    <Resource Include="Images\Weather\600d.png" />
+    <Resource Include="Images\Weather\600n.png" />
+    <Resource Include="Images\Weather\601d.png" />
+    <Resource Include="Images\Weather\601n.png" />
+    <Resource Include="Images\Weather\602d.png" />
+    <Resource Include="Images\Weather\602n.png" />
+    <Resource Include="Images\Weather\611d.png" />
+    <Resource Include="Images\Weather\611n.png" />
+    <Resource Include="Images\Weather\621d.png" />
+    <Resource Include="Images\Weather\621n.png" />
+    <Resource Include="Images\Weather\701d.png" />
+    <Resource Include="Images\Weather\701n.png" />
+    <Resource Include="Images\Weather\711d.png" />
+    <Resource Include="Images\Weather\711n.png" />
+    <Resource Include="Images\Weather\721d.png" />
+    <Resource Include="Images\Weather\721n.png" />
+    <Resource Include="Images\Weather\731d.png" />
+    <Resource Include="Images\Weather\731n.png" />
+    <Resource Include="Images\Weather\741d.png" />
+    <Resource Include="Images\Weather\741n.png" />
+    <Resource Include="Images\Weather\800d.png" />
+    <Resource Include="Images\Weather\800n.png" />
+    <Resource Include="Images\Weather\801d.png" />
+    <Resource Include="Images\Weather\801n.png" />
+    <Resource Include="Images\Weather\802d.png" />
+    <Resource Include="Images\Weather\802n.png" />
+    <Resource Include="Images\Weather\803d.png" />
+    <Resource Include="Images\Weather\803n.png" />
+    <Resource Include="Images\Weather\804d.png" />
+    <Resource Include="Images\Weather\804n.png" />
+    <Resource Include="Images\Weather\900d.png" />
+    <Resource Include="Images\Weather\900n.png" />
+    <Resource Include="Images\Weather\901d.png" />
+    <Resource Include="Images\Weather\901n.png" />
+    <Resource Include="Images\Weather\902d.png" />
+    <Resource Include="Images\Weather\902n.png" />
+    <Resource Include="Images\Weather\903d.png" />
+    <Resource Include="Images\Weather\903n.png" />
+    <Resource Include="Images\Weather\904d.png" />
+    <Resource Include="Images\Weather\904n.png" />
+    <Resource Include="Images\Weather\905d.png" />
+    <Resource Include="Images\Weather\905n.png" />
+    <Resource Include="Images\Weather\906d.png" />
+    <Resource Include="Images\Weather\906n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconButton_EditText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconDataGrid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconDateTimeControl.png" />
+    <Resource Include="Images\iconDateTimeControl_Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconDataGrid_Arabian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_ProofOfPlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_Report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iconTabItem_AirlineLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CeitconServerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\CeitconServerService\configuration.svcinfo" />
+    <None Include="Service References\CeitconServerService\configuration91.svcinfo" />
+    <Resource Include="Images\iconTabItem_Projects.png" />
+    <Resource Include="Images\iconButton_Audio.png" />
+    <Resource Include="Images\iconButton_AudioMute.png" />
+    <Resource Include="Images\iconButton_Connection.png" />
+    <Resource Include="Images\iconShrink.png" />
+    <Resource Include="Images\iconStatusGray.png" />
+    <Resource Include="Images\iconStatusGreen.png" />
+    <Resource Include="Images\iconStatusOrange.png" />
+    <Resource Include="Images\iconStatusRed.png" />
+    <Resource Include="Images\iconStatusYellow.png" />
+    <Resource Include="Images\iconStatusWhite.png" />
+    <Resource Include="Images\iconButton_UploadSmall.png" />
+    <Resource Include="Images\iconPDFControl.png" />
+    <Resource Include="Images\iconPDFControl_Active.png" />
+    <Resource Include="Images\iconPDF.png" />
+    <Resource Include="Images\iconWebBrowser.png" />
+    <Resource Include="Images\iconWebBrowserControl.png" />
+    <Resource Include="Images\iconWebBrowserControl_Active.png" />
+    <Resource Include="Images\iconPPT.png" />
+    <Resource Include="Images\iconPPTControl.png" />
+    <Resource Include="Images\iconPPTControl_Active.png" />
+    <Content Include="Logos\3T.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\6S.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\9P.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\9W.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\AF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\AI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\BA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\BG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\E5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\EK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\ET.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\EY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\F3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\FZ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\G9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\GF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\IX.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\IY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\J9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\KU.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\LH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\ME.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\MS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\NA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\NL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\PA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\PK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\PR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\RJ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\SD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\SM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\SV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\TK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\UL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\WY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\XY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\__.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CeitconServerService\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

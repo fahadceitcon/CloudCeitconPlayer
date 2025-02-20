@@ -1,0 +1,705 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.RichTextEditorControl"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             mc:Ignorable="d"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:telerikRibbon="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.RibbonView"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <!--<Grid.Resources>
+            <local:ExampleDataContext x:Key="ExampleDataContext"/>
+        </Grid.Resources>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--<telerik:HtmlDataProvider RichTextBox="{Binding ElementName=radRichTextBox}" 
+                              DataContext="{StaticResource ExampleDataContext}" 
+                              Html="{Binding Path=HtmlData, Mode=TwoWay}" />-->
+
+        <telerik:RadRichTextBoxRibbonUI ApplicationButtonVisibility="Collapsed" Height="Auto" telerik:StyleManager.Theme="Office_Blue" HelpButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" TitleBarVisibility="Collapsed" DataContext="{Binding Path=Commands, ElementName=radRichTextBox}">
+            <telerik:RadRichTextBoxRibbonUI.Resources>
+                <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider" />
+            </telerik:RadRichTextBoxRibbonUI.Resources>
+
+
+            <telerikRibbon:RadRibbonTab Header="Home">
+                <telerikRibbon:RadRibbonGroup Header="Clipboard">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="0" Variant="Medium" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <StackPanel>
+                        <telerikRibbon:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=CutCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/cut.png" Text="Cut" />
+                        <telerikRibbon:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=CopyCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/copy.png" Text="Copy" />
+                        <telerikRibbon:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=PasteCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/paste.png" Text="Paste" />
+                    </StackPanel>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup DialogLauncherVisibility="Visible" Header="Font" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowFontPropertiesDialogCommand}">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="4" Variant="Small" />
+                        <telerikRibbon:GroupVariant Priority="5" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadOrderedWrapPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <telerikRibbon:RadRibbonComboBox CanAutocompleteSelectItems="False" CanKeyboardNavigationSelectItems="False" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=SelectedValue}" Height="21" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource FontFamiliesProvider}, Path=RegisteredFonts}" OpenDropDownOnFocus="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeFontFamilyCommand}" Width="132" />
+                            <telerikRibbon:RadRibbonComboBox CanAutocompleteSelectItems="False" CanKeyboardNavigationSelectItems="False" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem.Tag}" Height="21" IsEditable="True" IsReadOnly="True" IsTextSearchEnabled="False" OpenDropDownOnFocus="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeFontSizeCommand}" Width="45">
+                                <telerikRibbon:RadRibbonComboBoxItem Content="8" Tag="10.67" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="9" Tag="12" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="10" Tag="13.33" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="11" Tag="14.67" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="12" Tag="16" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="14" Tag="18.67" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="16" Tag="21.33" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="18" Tag="24" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="20" Tag="26.67" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="22" Tag="29.33" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="24" Tag="32" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="26" Tag="34.67" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="28" Tag="37.33" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="36" Tag="48" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="48" Tag="64" />
+                                <telerikRibbon:RadRibbonComboBoxItem Content="72" Tag="96" />
+                            </telerikRibbon:RadRibbonComboBox>
+                        </StackPanel>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=IncrementFontSizeCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-increasesize.png" />
+                            <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DecrementFontSizeCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-decreasesize.png" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ClearFormattingCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ClearFormatting16.png" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleBoldCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/bold.png" />
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleItalicCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/italic.png" />
+                            <telerikRibbon:RadRibbonSplitButton IsToggle="True" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleUnderlineCommand}" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/underline.png">
+                                <telerikRibbon:RadRibbonSplitButton.DropDownContent>
+                                    <telerikRibbon:RadGallery ItemHeight="26" ItemWidth="156" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeUnderlineDecorationCommand}" ViewportHeight="210" ViewportWidth="157">
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline1.png" Tag="Line" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline2.png" Tag="DoubleLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline3.png" Tag="ThickLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline4.png" Tag="DottedLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline5.png" Tag="DashedLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline6.png" Tag="DotDashedLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline7.png" Tag="DotDotDashedLine" />
+                                        <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline8.png" Tag="Wave" />
+                                    </telerikRibbon:RadGallery>
+                                </telerikRibbon:RadRibbonSplitButton.DropDownContent>
+                            </telerikRibbon:RadRibbonSplitButton>
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleStrikethroughCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/Strikethrough16.png" />
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleSubscriptCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/subscript.png" />
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleSuperscriptCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/superscript.png" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerik:HighlightColorPicker AutomaticColor="Transparent" Height="22" Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/highlight.png" NoColorText="No color" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeFontHighlightColorCommand}" SelectedColor="Yellow" />
+                            <telerik:HighlightColorPicker Height="22" Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FontForeColor.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeFontForeColorCommand}" SelectedColor="Red" />
+                        </telerikRibbon:RadButtonGroup>
+                    </telerikRibbon:RadOrderedWrapPanel>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup DialogLauncherVisibility="Visible" Header="Paragraph" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowParagraphPropertiesDialogCommand}">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="1" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="3" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadOrderedWrapPanel>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleBulletsCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-bullets.png" />
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleNumberedCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-numbered.png" />
+                            <telerikRibbon:RadRibbonDropDownButton Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/MultilevelList.png">
+                                <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                                    <StackPanel>
+                                        <telerikRibbon:RadGroupHeader Content="List Library" />
+                                        <telerikRibbon:RadGallery ItemHeight="88" ItemWidth="88" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeListStyleCommand}" ViewportHeight="176" ViewportWidth="266">
+                                            <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNone.png" Tag="None" />
+                                            <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListBulleted.png" Tag="Bulleted" />
+                                            <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumbered.png" Tag="Numbered" />
+                                            <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedParenthesis.png" Tag="NumberedParenthesis" />
+                                            <telerikRibbon:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedHierarchical.png" Tag="NumberedHierarchical" />
+                                        </telerikRibbon:RadGallery>
+                                    </StackPanel>
+                                </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            </telerikRibbon:RadRibbonDropDownButton>
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DecrementParagraphLeftIndentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/outdent.png" />
+                            <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=IncrementParagraphLeftIndentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/indent.png" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="LeftToRight" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeParagraphFlowDirectionCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftToRightFlowDirection.png" Text="Left-to-Right Text Direction" />
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="RightToLeft" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeParagraphFlowDirectionCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightToLeftFlowDirection.png" Text="Right-to-Left Text Direction" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleFormattingSymbolsCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/formatting-symbols.png" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="Left" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTextAlignmentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignleft.png" Text="Align Left" />
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="Center" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTextAlignmentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/aligncenter.png" Text="Center" />
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="Right" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTextAlignmentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignright.png" Text="Align Right" />
+                            <telerikRibbon:RadRibbonToggleButton CommandParameter="Justify" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTextAlignmentCommand}" Size="Small" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignjustify.png" Text="Justify" />
+                        </telerikRibbon:RadButtonGroup>
+                        <telerikRibbon:RadButtonGroup>
+                            <telerik:HighlightColorPicker AutomaticColor="Transparent" Height="20" Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ParagraphBackgroundColor.png" NoColorText="No color" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeParagraphBackgroundColorCommand}" SelectedColor="Transparent" />
+                        </telerikRibbon:RadButtonGroup>
+                    </telerikRibbon:RadOrderedWrapPanel>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Editing &amp; Proofing">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="0" Variant="Medium" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <StackPanel>
+                        <telerikRibbon:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowFindReplaceDialogCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/Find.png" Text="Find/Replace" />
+                        <telerikRibbon:RadRibbonToggleButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleSpellCheckingCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/EnableSpellCheck.png" Text="Enable Spell Check" />
+                        <telerikRibbon:RadRibbonButton CollapseToSmall="WhenGroupIsMedium" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=OpenContextMenuOnNextSpellingErrorCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FindNextSpellingError.png" Text="Find Next Error" />
+                    </StackPanel>
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <!--<telerikRibbon:RadRibbonTab Header="Insert">
+                <telerikRibbon:RadRibbonGroup Header="Pages">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageBreak.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertPageBreakCommand}" Size="Large" Text="Page Break" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Tables">
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=InsertTableCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTable.png" Size="Large" Text="Insert">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerikRibbon:RadRibbonButton ClickMode="Press">
+                                    <telerik:TableSizePicker Command="{Binding Path=InsertTableCommand}" />
+                                </telerikRibbon:RadRibbonButton>
+                                <telerik:RadMenuItem IsSeparator="True" />
+                                <telerikRibbon:RadRibbonButton HorizontalAlignment="Stretch" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowInsertTableDialogCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/InsertTable.png" Text="Insert Table..." />
+                            </StackPanel>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Illustrations">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/Picture.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertPictureCommand}" Size="Large" Text="Picture" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Links">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/inserthyperlink.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowInsertHyperlinkDialogCommand}" Size="Large" Text="Hyperlink" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertBookmark.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowManageBookmarksDialogCommand}" Size="Large" Text="Bookmark" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Symbols">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/Symbol.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowInsertSymbolWindowCommand}" Size="Large" Text="Symbol" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Header &amp; Footer">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/EditHeader.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=EditHeaderCommand}" Size="Large" Text="Header" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/EditFooter.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=EditFooterCommand}" Size="Large" Text="Footer" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Text">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertDateTime.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowInsertDateTimeDialogCommand}" Size="Large" Text="Date &amp; Time" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertPageNumber.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertPageFieldCommand}" Size="Large" Text="Page Number" />
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="Page Layout">
+                <telerikRibbon:RadRibbonGroup Header="Page Setup">
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=ChangePaperTypeCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageSize.png" Size="Large" Text="Size">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <telerikRibbon:RadGallery ItemWidth="184" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangePaperTypeCommand}" ViewportWidth="185">
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A0" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (33.05&quot; x 46.78&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A1" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (23.39&quot; x 33.05&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A2" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (16.53&quot; x 23.39&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A3" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (11.7&quot; x 16.53&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A4" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8.26&quot; x 11.7&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="A5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="A5" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (5.83&quot; x 8.26&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA0" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (33.86&quot; x 48.03&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA1" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (24.01&quot; x 33.86&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA2" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (16.93&quot; x 24.01&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA3" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (12.01&quot; x 16.93&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA4" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8.46&quot; x 12.01&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="RA5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="RA5" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (4.76&quot; x 8.46&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B0" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (39.38&quot; x 55.67&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B1" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (27.83&quot; x 39.38&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B2" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (59.05&quot; x 19.68&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B3">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B3" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (13.91&quot; x 19.68&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B4" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (10.13&quot; x 14.33&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="B5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="B5" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (7.17&quot; x 10.13&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Quarto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Quarto" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8&quot; x 10&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Foolscap">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Foolscap" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8&quot; x 13&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Executive">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Executive" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (7.5&quot; x 10&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="GovernmentLetter">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="GovernmentLetter" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (10.5&quot; x 8&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Letter">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Letter" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 11&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Legal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Legal" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 14&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Ledger">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Ledger" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (17&quot; x 11&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Tabloid">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Tabloid" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (11&quot; x 17&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Post">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Post" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (15.64&quot; x 19.25&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Crown">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Crown" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (20&quot; x 15&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="LargePost">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="LargePost" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (16.5&quot; x 21&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Demy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Demy" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (17.5&quot; x 22&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Medium">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Medium" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (18&quot; x 23&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Royal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Royal" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (20&quot; x 25&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Elephant">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Elephant" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (21.74&quot; x 28&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="DoubleDemy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="DoubleDemy" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (23.5&quot; x 35&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="QuadDemy">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="QuadDemy" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (35&quot; x 45&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="STMT">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="STMT" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (5.5&quot; x 8.5&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Folio">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Folio" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (8.5&quot; x 13&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Statement">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Statement" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (5.5&quot; x 8.5&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Size10x14">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" Text="Size10x14" VerticalAlignment="Center" />
+                                        <TextBlock FontWeight="Normal" Text=" (10&quot; x 14&quot;)" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                            </telerikRibbon:RadGallery>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=ChangePageMarginsCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageMargin.png" Size="Large" Text="Margins">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <telerikRibbon:RadGallery ItemHeight="54" ItemWidth="114" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangePageMarginsCommand}" ViewportHeight="270" ViewportWidth="115">
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Normal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PageMarginNormal.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Normal" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Narrow">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PageMarginNarrow.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Narrow" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Moderate">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PageMarginModerate.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Moderate" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Wide">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PageMarginWide.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Wide" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Office2003">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PageMarginNormal.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Office2003" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                            </telerikRibbon:RadGallery>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=ChangePageOrientationCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageOrientation.png" Size="Large" Text="Orientation">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <telerikRibbon:RadGallery ItemHeight="54" ItemWidth="109" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangePageOrientationCommand}" ViewportHeight="216" ViewportWidth="110">
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Portrait">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageOrientationPortrait.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Portrait" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Rotate90">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageOrientationLandscape.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Landscape" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Rotate180">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageOrientationRotate180.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Rotate 180" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                                <telerikRibbon:RadGalleryItem HorizontalContentAlignment="Left" Tag="Rotate270">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageOrientationRotate270.png" Stretch="None" />
+                                        <TextBlock FontWeight="Bold" Text="Rotate 270" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </telerikRibbon:RadGalleryItem>
+                            </telerikRibbon:RadGallery>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="View">
+                <telerikRibbon:RadRibbonGroup Header="Document Views">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonButton CollapseToMedium="WhenGroupIsMedium" CollapseToSmall="WhenGroupIsSmall" CommandParameter="Flow" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/web-C.PNG" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeLayoutModeCommand}" Size="Large" Text="Web Layout" />
+                    <telerikRibbon:RadRibbonButton CollapseToMedium="WhenGroupIsMedium" CollapseToSmall="WhenGroupIsSmall" CommandParameter="Paged" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PageBreak.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeLayoutModeCommand}" Size="Large" Text="Print Layout" />
+                    <telerikRibbon:RadRibbonButton CollapseToMedium="WhenGroupIsMedium" CollapseToSmall="WhenGroupIsSmall" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/properties32.png" Size="Large" Text="Show Statistics"  Click="Statistics_Click" />
+                    <telerikRibbon:RadRibbonButton CollapseToMedium="WhenGroupIsMedium" CollapseToSmall="WhenGroupIsSmall" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/inspectdocument.png" Size="Large" Text="Document Structure"  Click="ViewDocumentStructure_Click"/>
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="Review">
+                <telerikRibbon:RadRibbonGroup Header="Proofing">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/EnableSpellCheck.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowSpellCheckingDialogCommand}" Size="Large" Text="Spell Check" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Comments">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/NewComment.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertCommentCommand}" Size="Large" Text="New Comment" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/DeleteComment.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DeleteCommentCommand}" Size="Large" Text="Delete" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/PreviousComment.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=GoToPreviousCommentCommand}" Size="Large" Text="Previous" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/NextComment.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=GoToNextCommentCommand}" Size="Large" Text="Next" />
+                    <telerikRibbon:RadRibbonToggleButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/ShowHideComments.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleCommentsCommand}" Size="Large" Text="Show/Hide Comments" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/DeleteAllComments.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DeleteAllCommentsCommand}" Size="Large" Text="Delete All" />
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="Mailings">
+                <telerikRibbon:RadRibbonGroup Header="Write &amp; Insert Fields">
+                    <telerikRibbon:RadRibbonToggleButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/HighlightMergeFields.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleMergeFieldsHighlightCommand}" Size="Large" Text="Highlight Merge Fields" />
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertMergeField.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertMergeFieldEmptyCommand}" Size="Large" Text="Insert Merge Field" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Preview Results">
+                    <telerikRibbon:RadRibbonButton CommandParameter="Code" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/ShowAllFieldsCodes.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Show All Fields Codes" />
+                    <telerikRibbon:RadRibbonButton CommandParameter="DisplayName" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/ShowAllFieldsDisplayNames.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Show All Fields Names" />
+                    <telerikRibbon:RadRibbonButton CommandParameter="Result" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/ShowAllFieldsResults.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeAllFieldsDisplayModeCommand}" Size="Large" Text="Preview Results" />
+                    <telerikRibbon:Separator />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/First.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=PreviewFirstMailMergeDataRecordCommand}" Size="Large" Text="First" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/Previous.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=PreviewPreviousMailMergeDataRecordCommand}" Size="Large" Text="Previous" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/Next.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=PreviewNextMailMergeDataRecordCommand}" Size="Large" Text="Next" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/Last.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=PreviewLastMailMergeDataRecordCommand}" Size="Large" Text="Last" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Finish">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/MailMerge.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=MailMergeCommand}" Size="Large" Text="Mail Merge" />
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="Table">
+                <telerikRibbon:RadRibbonGroup Header="Table">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=InsertTableCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTable.png" Size="Large" Text="Insert">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerikRibbon:RadRibbonButton ClickMode="Press">
+                                    <telerik:TableSizePicker Command="{Binding Path=InsertTableCommand}" />
+                                </telerikRibbon:RadRibbonButton>
+                                <telerik:RadMenuItem IsSeparator="True" />
+                                <telerikRibbon:RadRibbonButton HorizontalAlignment="Stretch" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowInsertTableDialogCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/InsertTable.png" Text="Insert Table..." />
+                            </StackPanel>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/DeleteTable.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DeleteTableCommand}" Size="Large" Text="Delete" />
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=SelectTableEmptyCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/SelectTableTools.png" Size="Large" Text="Select">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=SelectTableCellCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/SelectTableCell.png" Text="Select Cell" />
+                                <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=SelectTableColumnCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/SelectTableColumn.png" Text="Select Column" />
+                                <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=SelectTableRowCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/SelectTableRow.png" Text="Select Row" />
+                                <telerikRibbon:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=SelectTableCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/SelectTable.png" Text="Select Table" />
+                            </StackPanel>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/TableProperties.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ShowTablePropertiesDialogCommand}" Size="Large" Text="Properties" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Rows">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableRow.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableRowCommand}" Size="Large" Text="Insert Row" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableRowBelow.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableRowBelowCommand}" Size="Large" Text="Insert Below" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableRowAbove.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableRowAboveCommand}" Size="Large" Text="Insert Above" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/DeleteTableRows.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DeleteTableRowCommand}" Size="Large" Text="Delete Row" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Columns">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableColumn.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableColumnCommand}" Size="Large" Text="Insert Column" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableColumnToTheLeft.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableColumnToTheLeftCommand}" Size="Large" Text="Insert Left" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/InsertTableColumnToTheRight.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=InsertTableColumnToTheRightCommand}" Size="Large" Text="Insert Right" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/DeleteTableColumns.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=DeleteTableColumnCommand}" Size="Large" Text="Delete Column" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Merge">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/MergeTableCells.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=MergeTableCellsCommand}" Size="Large" Text="Merge Cells" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Cell Size">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="2" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="8" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <telerikRibbon:RadRibbonDropDownButton CollapseToMedium="WhenGroupIsMedium" Command="{Binding Path=SelectTableEmptyCommand}" LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/AutoFit.png" Size="Large" Text="AutoFit">
+                        <telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                            <StackPanel>
+                                <telerikRibbon:RadRibbonButton CommandParameter="AutoFit" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTableColumnsLayoutModeCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/AutoFItToWindow.png" Text="AutoFit to Window" />
+                                <telerikRibbon:RadRibbonButton CommandParameter="Fixed" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeTableColumnsLayoutModeCommand}" Size="Medium" SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FixedColumnWidth.png" Text="Fixed Column Width" />
+                            </StackPanel>
+                        </telerikRibbon:RadRibbonDropDownButton.DropDownContent>
+                    </telerikRibbon:RadRibbonDropDownButton>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Alignment">
+                    <telerikRibbon:RadRibbonGroup.Variants>
+                        <telerikRibbon:GroupVariant Priority="1" Variant="Medium" />
+                        <telerikRibbon:GroupVariant Priority="3" Variant="Collapsed" />
+                    </telerikRibbon:RadRibbonGroup.Variants>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <telerik:RadToggleButton CommandParameter="Left,Top" CornerRadius="3" Grid.Column="0" Grid.Row="0" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftTopCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Center,Top" CornerRadius="3" Grid.Column="1" Grid.Row="0" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/CenterTopCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Right,Top" CornerRadius="3" Grid.Column="2" Grid.Row="0" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightTopCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Left,Center" CornerRadius="3" Grid.Column="0" Grid.Row="1" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftMiddleCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Center,Center" CornerRadius="3" Grid.Column="1" Grid.Row="1" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/CenterMiddleCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Right,Center" CornerRadius="3" Grid.Column="2" Grid.Row="1" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightMiddleCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Left,Bottom" CornerRadius="3" Grid.Column="0" Grid.Row="2" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftBottomCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Center,Bottom" CornerRadius="3" Grid.Column="1" Grid.Row="2" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/CenterBottomCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                        <telerik:RadToggleButton CommandParameter="Right,Bottom" CornerRadius="3" Grid.Column="2" Grid.Row="2" IsBackgroundVisible="False" IsTabStop="False" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=TableCellContentAlignmentCommand}">
+                            <Image Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightBottomCellAlignment.png" Stretch="None" />
+                        </telerik:RadToggleButton>
+                    </Grid>
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>
+            <telerikRibbon:RadRibbonTab Header="Headers &amp; Footers">
+                <telerikRibbon:RadRibbonGroup Header="Header &amp; Footer">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/EditHeader.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=EditHeaderCommand}" Size="Large" Text="Header" />
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/EditFooter.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=EditFooterCommand}" Size="Large" Text="Footer" />
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Options">
+                    <StackPanel>
+                        <CheckBox Content="Different First Page" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleDifferentFirstPageHeaderFooterCommand}" />
+                        <CheckBox Content="Different Odd &amp; Even Pages" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ToggleDifferentOddAndEvenPagesHeaderFooterCommand}" />
+                    </StackPanel>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Position">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="24" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.Column="0" Grid.Row="0" Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/HeaderFromTop.png" Stretch="None" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text=" Header from Top: " VerticalAlignment="Center" />
+                        <telerik:RadNumericUpDown Grid.Column="2" Grid.Row="0" IsInteger="true" Minimum="0" NullValue="48" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeSectionHeaderTopMarginCommand}" />
+                        <Image Grid.Column="0" Grid.Row="1" Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FooterFromBottom.png" Stretch="None" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text=" Footer from Bottom: " VerticalAlignment="Center" />
+                        <telerik:RadNumericUpDown Grid.Column="2" Grid.Row="1" IsInteger="true" Minimum="0" NullValue="48" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ChangeSectionFooterBottomMarginCommand}" />
+                    </Grid>
+                </telerikRibbon:RadRibbonGroup>
+                <telerikRibbon:RadRibbonGroup Header="Close">
+                    <telerikRibbon:RadRibbonButton LargeImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/32/ExitHeaderFooterEditMode.png" telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding Path=ExitHeaderFooterEditModeCommand}" Size="Large" Text="Close Header and Footer" />
+                </telerikRibbon:RadRibbonGroup>
+            </telerikRibbon:RadRibbonTab>-->
+
+        </telerik:RadRichTextBoxRibbonUI>
+
+        <telerik:RadRichTextBox Name="radRichTextBox" Grid.Row="1" HorizontalAlignment="Stretch" IsContextMenuEnabled="True" IsSelectionMiniToolBarEnabled="True" IsSpellCheckingEnabled="True" LayoutMode="Paged"/>
+    </Grid>
+</UserControl>

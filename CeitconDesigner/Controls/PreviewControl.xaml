@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.PreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:util="clr-namespace:Ceitcon_Designer.Utilities"
+             mc:Ignorable="d"
+             Background="Transparent"
+             SnapsToDevicePixels="True"
+             DataContextChanged="UserControl_DataContextChanged">
+    <UserControl.Resources>
+        <!--<DrawingImage x:Key="icon_checkmark">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="Red" Geometry="F1 M 15.3347,40C 14.3093,40 13.3413,39.528 12.7093,38.7213L 0.708,23.388C -0.426667,21.9387 -0.170667,19.8427 1.27867,18.708C 2.72933,17.5747 4.824,17.8293 5.95867,19.2787L 15.3347,31.2573L 36.708,3.94534C 37.844,2.496 39.936,2.24 41.388,3.37467C 42.8373,4.50933 43.092,6.60534 41.9587,8.05467L 17.96,38.7213C 17.328,39.528 16.36,40 15.3347,40 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>-->
+        <!--<Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF0086E3"/>
+            <Setter Property="Background" Value="#FF222222"/>
+        </Style>
+
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF222222"/>
+        </Style>
+
+        <Storyboard x:Key="blinkAnimation" Duration="0:0:5">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)"
+                                      Storyboard.TargetName="TitleTextBlock"
+                                      AutoReverse="True">
+                <ColorAnimationUsingKeyFrames.KeyFrames>
+                    <DiscreteColorKeyFrame KeyTime="0:0:0" Value="White"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:1" Value="Black"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:2" Value="White"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:3" Value="Black"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:4" Value="White"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:5" Value="Black"/>
+                </ColorAnimationUsingKeyFrames.KeyFrames>
+            </ColorAnimationUsingKeyFrames>
+
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                      Storyboard.TargetName="TitleTextBlock"
+                                      AutoReverse="True">
+                <ColorAnimationUsingKeyFrames.KeyFrames>
+                    <DiscreteColorKeyFrame KeyTime="0:0:0" Value="Black"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:1" Value="White"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:2" Value="Black"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:3" Value="White"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:4" Value="Black"/>
+                    <DiscreteColorKeyFrame KeyTime="0:0:5" Value="White"/>
+                </ColorAnimationUsingKeyFrames.KeyFrames>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>-->
+
+        <!--<Style TargetType="{x:Type DataGrid}">
+            --><!-- Bunch of other setters --><!--
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource DataGridRowBgConverter}">
+                                    <Binding Path="IsThis" />
+                                    <Binding Path="IsThat" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=PropertyToIndicateImageBackground}" Value="True">
+                        <Setter Property="Background">
+                            <ImageBrush ImageSource="YourImage.jpg"/>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Setter>
+        </Style>-->
+        <!--<Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        --><!--<Grid Background="{TemplateBinding Background}">--><!--
+                        <Grid Background="Red">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+        <!--<DataGridTemplateColumn x:Key="dgt" Header="Image" Width="SizeToCells">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding Image}" Stretch="Fill" MinWidth="60"/>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>-->
+    </UserControl.Resources>
+    <!--<UserControl.Resources>
+        <Style TargetType="util:VideoPlayer">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="util:VideoPlayer">
+                        <Rectangle Fill="{TemplateBinding VideoBrush}"></Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>-->
+    <!--<UserControl.Resources>
+        <Style TargetType="util:VideoPlayer">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="util:VideoPlayer">
+                        <Rectangle Fill="{TemplateBinding VideoBrush}"></Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>-->
+    <!--<Grid x:Name="myGrid">-->
+    <Viewbox x:Name="previewViewBox" Stretch="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=ContentStretch, Mode=OneTime}" SnapsToDevicePixels="True">
+        <Grid x:Name="DesignerGrid">
+        <!--<util:VideoPlayer x:Name="player" Opacity="0" HorizontalAlignment="Left" VerticalAlignment="Top"></util:VideoPlayer>-->
+            <!--<MediaElement x:Name="player" Opacity="0" HorizontalAlignment="Left" VerticalAlignment="Top"></MediaElement>-->
+            <!--Width="{Binding Width, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Height="{Binding Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"-->
+            <Canvas SnapsToDevicePixels="True" Margin="0"
+                    Width="{Binding Width, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Height="{Binding Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Panel.ZIndex="2"
+                    x:Name="DesignerCanvas">
+                <Canvas.Resources>
+                    <Style TargetType="util:VideoPlayer">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="util:VideoPlayer">
+                                    <Rectangle Fill="{TemplateBinding VideoBrush}"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Canvas.Resources>
+            </Canvas>
+            <!--<Popup Name="PopupMessage"
+                AllowsTransparency="True"
+                PopupAnimation="Fade"
+                Placement="Center"
+                Panel.ZIndex="3">
+                <Border Background="{StaticResource BackgroundDark}" BorderThickness="1" CornerRadius="4" BorderBrush="{StaticResource TextColor}">
+                    <TextBlock Name="PopupText" FontSize="34" Margin="20,10,20,20" Foreground="{StaticResource TextColor}"/>
+                </Border>
+            </Popup>-->
+        </Grid>
+    </Viewbox>
+        <!--</Grid>-->
+    <!--<util:VideoPlayer x:Name="player" Stretch="Fill" Opacity="1"></util:VideoPlayer>-->
+</UserControl>

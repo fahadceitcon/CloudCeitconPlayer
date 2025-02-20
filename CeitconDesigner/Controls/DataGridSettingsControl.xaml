@@ -1,0 +1,862 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.DataGridSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:view="clr-namespace:Ceitcon_Designer.View"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:syswincon="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+             xmlns:ncore="http://schemas.ncore.com/wpf/xaml/colorbox"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+        <converters:BoolToIndexConverter x:Key="boolToIndexConverter" />
+        <converters:StringToFontFamilyConverter x:Key="StringToFontFamily"/>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="HorizontalAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="HorizontalAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="VerticalAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="VerticalAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="StretchEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Stretch" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="TextAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="TextAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type syswincon:DataGridGridLinesVisibility}" x:Key="DataGridGridLinesVisibilityEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="DataGridGridLinesVisibility" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyTitleCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyHeaderCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyColumnCollection"/>
+
+        <DataTemplate x:Key="FontFamilyTitleTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyHeaderTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyColumnTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="BASIC DATA GRID SETTING " Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Refres time [s]: " Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RefreshTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="50" MaxLength="5" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Max Rows:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.MaxRows, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="50" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Row Height:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Grid Lines:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemsSource="{Binding Source={StaticResource DataGridGridLinesVisibilityEnum}}" SelectedItem="{Binding DataGrid.LinesVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Vertical Line:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.VerticalLineColour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+
+                <TextBlock Text="Horizontal Line:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.HorizontalLineColour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.BorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.BorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.BorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.BorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.BorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Row Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Row Margin:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowMarginLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowMarginTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowMarginRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.RowMarginBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Row Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.RowBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Alternating Count:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.AlternationCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Alt. Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.AlternatingRowBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock Text="Show Shadow:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding DataGrid.IsVisibleShadow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show shedow." VerticalAlignment="Center"/>
+
+                <TextBlock Text="Shadow Blur Radius:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowShadowEffectBlurRadius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Shadow Opacity:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowShadowEffectOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}}" Width="30" MaxLength="4" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <!--<TextBlock Text="Color:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.RowShadowEffectColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>-->
+
+                <TextBlock Text="Shadow Depth:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowShadowEffectShadowDepth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Shadow Direction:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.RowShadowEffectDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="4" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="COLUMN HEADER SETTINGS" Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.HeaderBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.HeaderForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Height:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="50" MaxLength="4" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="50" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="100" ItemTemplate="{StaticResource FontFamilyHeaderTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyHeaderCollection}}"
+                          SelectedItem="{Binding DataGrid.HeaderFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding DataGrid.HeaderFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding DataGrid.HeaderFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.HeaderBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Thickness:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Margin:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderMarginLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderMarginTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderMarginRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Text="{Binding DataGrid.HeaderMarginBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Horizontal Aling:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" 
+                       ItemsSource="{Binding Source={StaticResource HorizontalAlignmentEnum}}" 
+                       SelectedItem="{Binding DataGrid.HeaderHorizontalAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Vertical Aling:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80"  ItemsSource="{Binding Source={StaticResource VerticalAlignmentEnum}}" SelectedItem="{Binding DataGrid.HeaderVerticalAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock Text="Show Shadow:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding DataGrid.HeaderIsVisibleShadow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show shedow." VerticalAlignment="Center"/>
+
+                <TextBlock Text="Shadow Blur Radius:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderShadowEffectBlurRadius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Shadow Opacity:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderShadowEffectOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}}" Width="30" MaxLength="4" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <!--<TextBlock Text="Color:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding DataGrid.HeaderShadowEffectColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>-->
+
+                <TextBlock Text="Shadow Depth:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderShadowEffectShadowDepth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Shadow Direction:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding DataGrid.HeaderShadowEffectDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="4" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="COLUMN SETTINGS" Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="5" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ListBox 
+                BorderThickness="0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="Transparent"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.CanContentScroll="False"
+                ItemsSource="{Binding DataGrid.SelectedSource.Columns, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF0086E3"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FF0086E3"/>
+                        </Style.Resources>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StandartTextBlock}" Margin="5,7,0,5" Width="100" HorizontalAlignment="Left"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Column="1">
+                <Button Template="{StaticResource SimpleButton}" Width="20" Height="50" Margin="0,0,10,5" Click="MoveUpButton_Click" ToolTip="Move selected column on upper position">
+                    <Image Source="../Images/iconButton_MoveUp.png" Stretch="Fill"/>
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Width="20" Height="50" Margin="0,5,10,5" Click="MoveDownButton_Click" ToolTip="Move selected column on below position">
+                    <Image Source="../Images/iconButton_MoveDown.png" Stretch="Fill"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="5" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Visible:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" Margin="5" Width="20" IsChecked="{Binding DataGrid.SelectedSource.SelectedColumn.IsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show column." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Title:" Margin="5" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DataGrid.SelectedSource.SelectedColumn.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="175" MaxLength="50" Margin="5,5,0,5" HorizontalAlignment="Left">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Width:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataGrid.SelectedSource.SelectedColumn.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="50" MaxLength="4" Margin="5,5,5,5" TextAlignment="Right" HorizontalAlignment="Left">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Type:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" Margin="5" Width="80" SelectedIndex="{Binding DataGrid.SelectedSource.SelectedColumn.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="Text"/>
+                    <ComboBoxItem Content="Image"/>
+                </ComboBox>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Image Stretch:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"
+                    Visibility="{Binding DataGrid.SelectedSource.SelectedColumn.IsImage, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+                
+                <ComboBox Grid.Row="4" Grid.Column="1" Margin="5" Width="80" HorizontalAlignment="Left"
+                          ItemsSource="{Binding Source={StaticResource StretchEnum}}" 
+                          SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.ImageStretch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Visibility="{Binding DataGrid.SelectedSource.SelectedColumn.IsImage, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock  Grid.Row="8" Grid.Column="0" Text="Background:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Grid.Row="8" Grid.Column="1"  Margin="5" Brush="{Binding DataGrid.SelectedSource.SelectedColumn.Background, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="Foreground:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Grid.Row="9" Grid.Column="1" Margin="5" Brush="{Binding DataGrid.SelectedSource.SelectedColumn.Foreground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="Horizontal Aling:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="10" Grid.Column="1" Margin="5" Width="80" 
+                       ItemsSource="{Binding Source={StaticResource TextAlignmentEnum}}" 
+                       SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.TextAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="Vertical Aling:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="11" Grid.Column="1" Margin="5" Width="80"  ItemsSource="{Binding Source={StaticResource VerticalAlignmentEnum}}" SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.VerticalAlignment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Grid.Row="12" Grid.Column="0" Text="Font Size:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="12" Grid.Column="1" Margin="5" Width="80" Text="{Binding DataGrid.SelectedSource.SelectedColumn.FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" MaxLength="3" TextAlignment="Right" HorizontalAlignment="Left" >
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Grid.Row="13" Grid.Column="0" Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="13" Grid.Column="1" Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyColumnTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyColumnCollection}}" 
+                          SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Row="14" Grid.Column="0" Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="14" Grid.Column="1" Margin="5" Width="80" SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.FontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Grid.Row="15" Grid.Column="0" Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox  Grid.Row="15" Grid.Column="1" Width="80" Margin="5" SelectedItem="{Binding DataGrid.SelectedSource.SelectedColumn.FontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Grid.Row="16" Grid.Column="0" Text="Sort:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="16" Grid.Column="1" Margin="5" Width="80" SelectedIndex="{Binding DataGrid.SelectedSource.SelectedColumn.Sort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="No"/>
+                    <ComboBoxItem Content="Ascending"/>
+                    <ComboBoxItem Content="Descending"/>
+                </ComboBox>
+
+                <TextBlock Grid.Row="17" Grid.Column="0" Text="Condition:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="17" Grid.Column="1" Text="{Binding DataGrid.SelectedSource.SelectedColumn.WhereOperator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" MaxLength="2" Margin="5,5,5,5" ToolTip="You can use: == or !=" HorizontalAlignment="Left">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Row="17" Grid.Column="1" Text="{Binding DataGrid.SelectedSource.SelectedColumn.WhereValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" MaxLength="50" Margin="60,5,0,5" HorizontalAlignment="Left">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBlock Grid.Row="18" Grid.Column="0" Text="Merge Column:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="18" Grid.Column="1" Text="{Binding DataGrid.SelectedSource.SelectedColumn.MergeColumn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="175" MaxLength="50" Margin="5,5,5,5" 
+                     ToolTip="Type column name, values from this column will be added on existing" HorizontalAlignment="Left">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Grid.Row="19" Grid.Column="0" Text="Special Cell:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <Button Grid.Row="19" Grid.Column="1" Width="80" Margin="5" Style="{StaticResource ConfirmButton}" ToolTip="Select styles for cell values" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                        Click="SpecialCellButton_Click">
+                    <TextBlock Text="Define" FontSize="16" Margin="5"/>
+                </Button>
+
+                <TextBlock Grid.Row="20" Grid.Column="0" Text="Time Filter:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"
+                           Visibility="{Binding DataGrid.SelectedSource.SelectedColumn.IsTimeFilterVisible,  Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+                <Button Grid.Row="20" Grid.Column="1" Width="80" Margin="5" Style="{StaticResource ConfirmButton}" ToolTip="Select time filter" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                        Click="TimeFilterButton_Click" Visibility="{Binding DataGrid.SelectedSource.SelectedColumn.IsTimeFilterVisible,  Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+                    <TextBlock Text="Define" FontSize="16" Margin="5"/>
+                </Button>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

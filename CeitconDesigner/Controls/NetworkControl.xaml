@@ -1,0 +1,610 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.NetworkControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <!--<ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />-->
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource ConfirmButton}" ToolTip="Create Item" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150" Margin="0,0,0,5"
+                    Click="ButtonCreate_Click">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="../Images/iconButton_NetworkAdd.png" Width="20" Height="20" Margin="5,10,5,5"/>
+                    <TextBlock Text="Create Item" FontSize="16" Margin="5,8,5,5"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource ConfirmButton}" ToolTip="Delete Item" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150" Margin="10,0,0,5"
+                    Click="ButtonDelete_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/iconButton_NetworkDelete.png" Width="20" Height="20" Margin="5,10,5,5"/>
+                    <TextBlock Text="Delete Item" FontSize="16" Margin="5,8,5,5"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="NETWORK / PLAYERS" Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <controls:NetworkTreeControl x:Name="networkTree" Grid.Row="2" DataContext ="{Binding ., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0"/>
+        
+        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="3" HorizontalAlignment="Stretch" Cursor="SizeWE"/>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource StandartTextBox}" TargetType="{x:Type TextBox}" />
+                <Style BasedOn="{StaticResource StandartTextBlock}" TargetType="{x:Type TextBlock}" />
+                <DataTemplate DataType="{x:Type model:NetworkModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Column="1" Text="Network" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Main Network" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:DomainModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Domain" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                             <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:CountryModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Country" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox  Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:NetworkRegionModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Region" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:LocationGroupModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Location Group" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:LocationModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Location" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:FloorModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Floor" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:ZoneModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Zone" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:PlayerGroupModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Player Group" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:PlayerModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <!--<TextBlock Grid.Row="4" Text="HostName: "/>
+                        <TextBlock Grid.Row="5" Text="IPAddress: "/>
+                        <TextBlock Grid.Row="6" Text="Licence: "/>
+                        <TextBlock Grid.Row="7" Text="RegistredTime: "/>
+                        <TextBlock Grid.Row="8" Text="LastConnection: "/>-->
+                        <TextBlock Grid.Row="9" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Player" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <!--<TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding HostName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='Not Registred'}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding IPAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='Not Registred'}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Licence, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding RegistredTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='Not Registred'}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding LastConnection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='Not Registred'}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>-->
+                        <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:FaceGroupModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Face Group" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type model:FaceModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock Grid.Row="0" Text="Type: "/>
+                        <TextBlock Grid.Row="1" Text="Name: "/>
+                        <TextBlock Grid.Row="2" Text="Description: "/>
+                        <TextBlock Grid.Row="3" Text="Identification: "/>
+                        <TextBlock Grid.Row="4" Text="Active: "/>
+                        <TextBlock Grid.Column="1" Text="Face" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxHeight="200"
+                                 MaxLength="300" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Visible">
+                            <i:Interaction.Behaviors>
+                                <behaviors:TextBoxEnterKeyUpdateBehavior />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding Identification, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" MaxLength="50" IsReadOnly="True"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,15"/>
+                        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Apply" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                Width="80" Margin="0,0,0,5" Click="ButtonApply_Click">
+                            <TextBlock Text="Apply" FontSize="16" Margin="5"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </StackPanel.Resources>
+            <Separator Margin="0,0,0,0"/>
+            <ContentPresenter Content="{Binding ElementName=networkTree, Path=SelectedItem}"/>
+        </StackPanel>
+
+       </Grid>
+</UserControl>

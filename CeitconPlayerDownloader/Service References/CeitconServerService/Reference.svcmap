@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="932d881a-d97f-4bcc-b790-bb19684f8c43" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/CeitconServer/service/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Microsoft.ServiceModel.Samples.wsdl" MetadataType="Wsdl" ID="020c6a90-9bcf-452b-bdf9-a9f7888f7415" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="9c7f1845-126a-4449-8efc-c5d2bfb38925" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="Microsoft.ServiceModel.Samples.xsd" MetadataType="Schema" ID="26c5712c-153c-415c-95e4-33d6ea8ed71c" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="351eef3b-0290-4b33-84a2-56d1be317509" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="Ceitcon_Service.xsd" MetadataType="Schema" ID="6c3a3c8f-f8a7-48ec-a4ee-b7b2528ca425" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="System.IO.xsd" MetadataType="Schema" ID="b626978a-6acf-41d5-9591-90ae8013ee33" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="22e32626-331a-4b9b-a173-936ca09fbf5f" SourceId="1" SourceUrl="http://localhost:8000/CeitconServer/service/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

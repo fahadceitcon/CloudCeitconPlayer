@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.DataSourceControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             xmlns:view="clr-namespace:Ceitcon_Designer.View"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             xmlns:utilities="clr-namespace:Ceitcon_Designer.Utilities"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+                
+        <Grid HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource ConfirmButton}" ToolTip="Create Item" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="130" Margin="0,0,0,5"
+                    Click="CreateButton_Click">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../Images/iconButton_NetworkAdd.png" Width="20" Height="20" Margin="5,10,5,5"/>
+                        <TextBlock Text="Create Item" FontSize="16" Margin="5,8,5,5"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource ConfirmButton}" ToolTip="Delete Item" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="130" Margin="10,0,0,5"
+                    Click="DeleteButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/iconButton_NetworkDelete.png" Width="20" Height="20" Margin="5,10,5,5"/>
+                        <TextBlock Text="Delete Item" FontSize="16" Margin="5,8,5,5"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="DATA SOURCES" Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <ListBox Grid.Row="2"
+                BorderThickness="0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="Transparent"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.CanContentScroll="False"
+                ItemsSource="{Binding DataSources, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedDataSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF0086E3"/>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FF0086E3"/>
+                    </Style.Resources>
+                </Style>
+            </ListBox.Resources>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StandartTextBlock}" Width="200" Margin="5,7,0,5" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Source, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource StandartTextBlock}" Margin="5,7,0,5" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <GridSplitter Grid.Column="1" Grid.RowSpan="3" Width="3" HorizontalAlignment="Stretch" Cursor="SizeWE"/>
+
+        <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--<TextBlock Grid.Column="1" Grid.ColumnSpan="1" Text="EDIT SOURCE" Margin="5,10,5,5" HorizontalAlignment="Center"/>-->
+            <TextBlock Text="Id: " Margin="5,10,5,5" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Column="1" Text="{Binding SelectedDataSource.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='Not selected item'}" Margin="5,10,5,5" HorizontalAlignment="Left"/>
+          
+            <TextBlock Grid.Row="1" Text="Name: " Margin="5,10,5,5" HorizontalAlignment="Right"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedDataSource.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" Margin="5" Width="300" HorizontalAlignment="Left" TextAlignment="Left"/>
+
+            <TextBlock Grid.Row="2" Text="File Loaction: " Margin="5" HorizontalAlignment="Right"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <RadioButton Name="rb1" GroupName="gt" Margin="5,0,5,0" Content="Local" IsChecked="True" Foreground="{StaticResource TextColor}"/>
+                <RadioButton Name="rb2" GroupName="gt" Margin="5,0,5,0" Content="URL" Foreground="{StaticResource TextColor}"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="3" Text="Type: " Margin="5" HorizontalAlignment="Right"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Width="300" SelectedIndex="0">
+                <ComboBoxItem Content="XML File" />
+                <ComboBoxItem Content="JSON File" />
+                <ComboBoxItem Content="EXL File" />
+            </ComboBox>
+
+            <TextBlock Grid.Row="4" Text="File:" Margin="5" VerticalAlignment="Center" Visibility="{Binding IsChecked, ElementName=rb1, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}" HorizontalAlignment="Right"/>
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding IsChecked, ElementName=rb1, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+                <Button Template="{StaticResource SimpleButton}" Width="20" Height="20" Margin="5" ToolTip="Select source" Click="AddSourceButton_Click" >
+                    <Image Source="../Images/iconButton_SourceAdd.png" />
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Width="20" Height="20" Margin="0,5,5,5" ToolTip="Clear source" Click="RemoveSourceButton_Click">
+                    <Image Source="../Images/iconButton_SourceClear.png" />
+                </Button>
+                <TextBlock Text="{Binding SelectedDataSource.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='No Source'}" Style="{StaticResource StandartTextBlock}"
+               ToolTip="{Binding SelectedDataSource.Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='No Source'}"
+               Margin="5" VerticalAlignment="Center" FontSize="12"/>
+            </StackPanel>
+            <TextBlock Grid.Row="4" Text="URL: " Margin="5" VerticalAlignment="Center" Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}" HorizontalAlignment="Right"/>
+            <TextBox  Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="{Binding SelectedDataSource.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" Margin="5" Width="300" HorizontalAlignment="Left" TextAlignment="Left"
+                  Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+            <TextBlock Grid.Row="5" Text="Username: " Margin="5" VerticalAlignment="Center" Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}" HorizontalAlignment="Right"/>
+            <TextBox  Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Text="{Binding SelectedDataSource.UrlUsername, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" Margin="5" Width="300" HorizontalAlignment="Left" TextAlignment="Left"
+                  Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+            <TextBlock Grid.Row="6" Text="Password: " Margin="5" VerticalAlignment="Center" Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}" HorizontalAlignment="Right"/>
+            <PasswordBox
+                Grid.Row="6" Grid.Column="1"
+                x:Name="PasswordBox"
+                utilities:PasswordBoxHelper.Attach="True" 
+                utilities:PasswordBoxHelper.Password="{Binding SelectedDataSource.UrlPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="5"
+                HorizontalAlignment="Left"
+                Width="300"
+                MaxLength="50"
+                Visibility="{Binding IsChecked, ElementName=rb2, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+                />
+
+            <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource ConfirmButton}" ToolTip="Upload Data To Server" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Margin="5"
+                Click="UploadSourceButton_Click">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="../Images/iconButton_Upload.png" Width="30" Height="30" Margin="5,5,5,5"/>
+                    <TextBlock Text="Apply" Margin="5,10,5,5"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
+             

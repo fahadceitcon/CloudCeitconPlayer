@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Ceitcon_Designer.Resources">
+    <SolidColorBrush x:Key="BackgroundLight" Color="#FF545454"/>
+    <SolidColorBrush x:Key="BackgroundNormal" Color="#FF414141"/>
+    <SolidColorBrush x:Key="BackgroundDark" Color="#FF222222"/>
+    <SolidColorBrush x:Key="SelectedLight" Color="#FF84E62E"/>
+    <SolidColorBrush x:Key="SelectedNormal" Color="#FF657259"/>
+    <SolidColorBrush x:Key="SelecteddDark" Color="#FF3C611B"/>
+    <SolidColorBrush x:Key="TextColor" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="ActivLight" Color="#FF0086E3"/>
+    <SolidColorBrush x:Key="ActivNormal" Color="#FF1383D1"/>
+    <SolidColorBrush x:Key="HeaderBackground" Color="LightGray"/>
+    <SolidColorBrush x:Key="HeaderForeground" Color="Black"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#FF0086E3" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF1383D1" />
+</ResourceDictionary>

@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.NetworkTreePlayerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+
+        <Style x:Key="styleTreeViewExpandCollapse" TargetType="{x:Type ToggleButton}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Image x:Name="image" Source="../Images/iconTreeViewPlus.png" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="image" Property="Source" Value="../Images/iconTreeViewMinus.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleTreeView" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <ControlTemplate.Resources>
+                            <converters:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
+                        </ControlTemplate.Resources>
+                        <StackPanel>
+                            <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="19" Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>-->
+                                    <ToggleButton Grid.Column="0" Margin="0,2,4,0" x:Name="Expander"  Style="{StaticResource styleTreeViewExpandCollapse}" IsChecked="{Binding Path=IsExpanded,  RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Width="16" Height="16"/>
+                                    <ContentPresenter Grid.Column="1" x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                    <!--<Rectangle Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="3" Fill="Blue"/>-->
+                                </Grid>
+                            </Border>
+                            <Separator Margin="0,0,0,0"/>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false"/>
+                                    <Condition Property="Width" Value="Auto"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinWidth" Value="75"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false"/>
+                                    <Condition Property="Height" Value="Auto"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinHeight" Value="19"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <TreeView Name="dmtv" ItemsSource="{Binding Network}"
+            Background="White"
+            SelectedItemChanged="dmtv_SelectedItemChanged"
+            VirtualizingStackPanel.IsVirtualizing="True"
+            VirtualizingStackPanel.VirtualizationMode="Recycling">
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource styleTreeView }">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Background" Value="Orange" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </TreeView.ItemContainerStyle>
+
+        <TreeView.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                     Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                     Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
+            <HierarchicalDataTemplate DataType="{x:Type model:NetworkModel}" ItemsSource="{Binding Domains}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:DomainModel}" ItemsSource="{Binding Countries}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:CountryModel}" ItemsSource="{Binding Regions}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:NetworkRegionModel}" ItemsSource="{Binding LocationGroups}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:LocationGroupModel}" ItemsSource="{Binding Locations}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:LocationModel}" ItemsSource="{Binding Floors}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:FloorModel}" ItemsSource="{Binding Zones}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:ZoneModel}" ItemsSource="{Binding PlayerGroups}">
+                <TextBlock Text="{Binding Name}" />
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:PlayerGroupModel}" ItemsSource="{Binding Players}">
+                <TextBlock Text="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type model:PlayerModel}">
+                <TextBlock Text="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+        </TreeView.Resources>
+    </TreeView>
+</UserControl>

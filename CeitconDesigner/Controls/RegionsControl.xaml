@@ -1,0 +1,727 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.RegionsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:view="clr-namespace:Ceitcon_Designer.View"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model;assembly=Ceitcon_Data"
+             xmlns:controls="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:utilities="clr-namespace:Ceitcon_Designer.Utilities"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:form="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             IsVisibleChanged="UserControl_IsVisibleChanged"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Copy" Executed="CopyCommand_Executed" CanExecute="CopyCommand_CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Paste" Executed="PasteCommand_Executed" CanExecute="PasteCommand_CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Undo" Executed="UndoCommand_Executed" CanExecute="UndoCommand_CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Redo" Executed="RedoCommand_Executed" CanExecute="RedoCommand_CanExecute" />
+    </UserControl.CommandBindings>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+
+        <!--Region List Box Item-->
+        <Style x:Key="RegionListBoxItem" TargetType="{x:Type ListBoxItem}">
+            <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ContentPresenter Content="{TemplateBinding DataContext}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True" >
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <DataTemplate DataType="{x:Type model:RegionModel}">
+                    <Border BorderThickness="1" BorderBrush="{StaticResource BackgroundDark}" Background="{StaticResource BackgroundLight}">
+                        <StackPanel Width="300">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/iconControlDragThumb.png" Height="16" Margin="5"/>
+                                <!--<TextBlock  Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5"/>-->
+                                <TextBlock Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" >
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} ({1} x {2})">
+                                            <Binding Path="Name" />
+                                            <Binding Path="Width" />
+                                            <Binding Path="Height" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <!--<Button Template="{StaticResource SimpleButton}" ToolTip="Remove Slide" Command="local:CustomCommands.RemoveSlide" Margin="5">
+                                    <Image Source="../Images/iconButton_Window_Close.png"/>
+                                </Button>-->
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </Style.Resources>
+        </Style>
+
+        <!--Slide List Box Item-->
+        <Style x:Key="SlideListBoxItem" TargetType="{x:Type ListBoxItem}">
+            <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ContentPresenter Content="{TemplateBinding DataContext}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True" >
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <DataTemplate DataType="{x:Type model:SlideModel}">
+                    <Border BorderThickness="1" BorderBrush="{StaticResource BackgroundDark}" Background="{StaticResource BackgroundLight}">
+                        <StackPanel Width="300">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Name:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <TextBox Margin="5" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" MaxLength="20"/>
+                                <Button Template="{StaticResource SimpleButton}" ToolTip="Remove Slide" Command="view:CustomCommands.RemoveSlide" Margin="45,5,5,5">
+                                    <Image Source="../Images/iconButton_Window_Close.png"/>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Duration:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <controls:DurationControl Duration="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Forever="{Binding Forever, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Schedule:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <CheckBox Margin="10,5,0,0" IsChecked="{Binding EnableSchedule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Start Date:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <DatePicker Name="DTStartDate" Margin="10,5,0,0" SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="End Date:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <DatePicker Name="DTEndDate" Margin="10,5,0,0" SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Start Time:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <telerik:RadTimePicker Name="TPStartTime" Margin="10,5,0,0" SelectedTime="{Binding StartTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="End Time:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <telerik:RadTimePicker Name="TPEndTime" Margin="10,5,0,0" SelectedTime="{Binding EndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>
+                            <!--<StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Start Time:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <DatePicker Margin="10,5,0,0" SelectedDate ="{Binding StartTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="End Time:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
+                                <DatePicker Margin="10,5,0,0" SelectedDate="{Binding EndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+                            </StackPanel>-->
+                            <!--<Separator HorizontalAlignment="Stretch"/>-->
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </Style.Resources>
+        </Style>
+
+        <!--MoveThumb Template-->
+        <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type utilities:MoveThumb}">
+            <Rectangle Fill="Transparent"/>
+        </ControlTemplate>
+
+        <!--ResizeDecorator Template-->
+        <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
+            <Grid>
+                <utilities:ResizeThumb Height="6" Cursor="SizeNS" Margin="0 -5 0 0" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                <utilities:ResizeThumb Width="6" Cursor="SizeWE" Margin="-5 0 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+                <utilities:ResizeThumb Width="6" Cursor="SizeWE" Margin="0 0 -5 0"  VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+                <utilities:ResizeThumb Height="6" Cursor="SizeNS" Margin="0 0 0 -5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                <utilities:ResizeThumb Width="15" Height="15" Cursor="SizeNWSE" Margin="-14 -14 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding DataContext.IsSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+                <utilities:ResizeThumb Width="15" Height="15" Cursor="SizeNESW" Margin="0 -14 -14 0" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{Binding DataContext.IsSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+                <utilities:ResizeThumb Width="15" Height="15" Cursor="SizeNESW" Margin="-14 0 0 -14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="{Binding DataContext.IsSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+                <utilities:ResizeThumb Width="15" Height="15" Cursor="SizeNWSE" Margin="0 0 -14 -14" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="{Binding DataContext.IsSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <!--Designer Item Template-->
+        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="{x:Type ContentControl}">
+            <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                <utilities:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll"/>
+                <Control Template="{StaticResource ResizeDecoratorTemplate}"/>
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <ObjectDataProvider x:Key="ScreenOrientations" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="form:ScreenOrientation"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource BackgroundNormal}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="450"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Buttons-->
+        <Grid Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0" Background="{StaticResource BackgroundLight}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Template="{StaticResource SimpleButton}" Margin="0,0,0,0" IsTabStop="False" Click="AddResolution_Click" Cursor="Hand" ToolTip="Click to create new resolution">
+                    <Image Source="../Images/iconButton_ResolutionAdd.png" Stretch="Uniform" Width="20" Height="20"/>
+                </Button>
+
+                <ComboBox
+                    HorizontalAlignment="Left"
+	                Margin="5,0,0,0"
+	                Width="200"
+                    IsTabStop="False"
+	                ItemsSource="{Binding Resolutions, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+
+                    SelectedItem="{Binding Project.SelectedResolution, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Select total resolution"
+                    SelectionChanged="ResolutionComboBox_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="220" >
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch"/>
+                                <Button Template="{StaticResource SimpleButton}" Margin="0,0,25,0" IsTabStop="False" Click="EditResolution_Click" Cursor="Hand" ToolTip="Edit resolution" HorizontalAlignment="Right"
+                                        Visibility="{Binding IsInitial, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}">
+                                    <Image Source="../Images/iconButton_ResolutionEdit.png" Stretch="Uniform" Width="20" Height="20"/>
+                                </Button>
+                                <Button Template="{StaticResource SimpleButton}" Margin="0,0,0,0" IsTabStop="False" Click="DeleteResolution_Click" Cursor="Hand" ToolTip="Delete resolution" HorizontalAlignment="Right"
+                                        Visibility="{Binding IsInitial, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}">
+                                    <Image Source="../Images/iconButton_ResolutionRemove.png" Stretch="Uniform" Width="20" Height="20"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False" Click="AddMonitor_Click" Cursor="Hand" ToolTip="Click to create new schema monitors">
+                    <Image Source="../Images/iconButton_MonitorAdd.png" Stretch="Uniform" Width="20" Height="20"/>
+                </Button>
+
+                <ComboBox
+                    HorizontalAlignment="Left"
+	                Margin="5,0,0,0"
+	                Width="100"
+                    IsTabStop="False"
+                    ItemsSource="{Binding Monitors, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding Project.SelectedMonitor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Select multiple monitors"
+                    SelectionChanged="MonitorComboBox_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="220" >
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch"/>
+                                <Button Template="{StaticResource SimpleButton}" Margin="0,0,25,0" IsTabStop="False" Click="EditMonitor_Click" Cursor="Hand" ToolTip="Edit monitor" HorizontalAlignment="Right"
+                                        Visibility="{Binding IsInitial, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}">
+                                    <Image Source="../Images/iconButton_MonitorEdit.png" Stretch="Uniform" Width="20" Height="20"/>
+                                </Button>
+                                <Button Template="{StaticResource SimpleButton}" Margin="0,0,0,0" IsTabStop="False" Click="DeleteMonitor_Click" Cursor="Hand" ToolTip="Delete monitor" HorizontalAlignment="Right"
+                                        Visibility="{Binding IsInitial, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}">
+                                    <Image Source="../Images/iconButton_MonitorRemove.png" Stretch="Uniform" Width="20" Height="20"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox
+                        HorizontalAlignment="Left"
+	                    Margin="5,0,0,0"
+	                    Width="100"
+                        IsTabStop="False"
+                        ItemsSource="{Binding Source={StaticResource ScreenOrientations}}"
+                        ToolTip="Select default desktop orientation"
+                        SelectedItem="{Binding Project.SelectedOrientation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+
+                <!--Command="{Binding DrawRegionCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"-->
+                <!--<Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False"
+                        
+                        PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" PreviewMouseMove="Button_PreviewMouseMove"
+                        Cursor="ScrollAll" ToolTip="Customize region - Drag and Drop to diagram">
+                    <Image Stretch="Uniform" Width="30" Height="30">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Style.Triggers>
+                                    <Trigger Property="Button.IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="../Images/iconRegionControl_Active.png"/>
+                                    </Trigger>
+                                    <Trigger Property="Button.IsMouseOver" Value="False">
+                                        <Setter Property="Source" Value="../Images/iconRegionControl.png"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Button>-->
+                <Button Style="{StaticResource ConfirmButton}" ToolTip="Create Region" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150" Margin="10,0,0,0" IsTabStop="False"
+                    Command="{Binding RegionFillCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../Images/iconButton_NetworkAdd.png" Width="20" Height="20" Margin="5,5,5,5"/>
+                        <TextBlock Text="Create Region" FontSize="16" Margin="5,5,5,5"/>
+                    </StackPanel>
+                </Button>
+                <!--<Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False"
+                        Command="{Binding RegionFillCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                        Cursor="Hand" ToolTip="Create Region">
+                    <Image Source="../Images/iconButton_AddRegion_Fill.png" Stretch="Uniform" Width="30" Height="30"/>
+                </Button>-->
+                <!--<Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False"
+                        Command="{Binding RegionSplitHCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                        Cursor="Hand" ToolTip="Two horizontal splited regions">
+                    <Image Source="../Images/iconButton_AddRegion_SplitHorizontal.png" Stretch="Uniform" Width="30" Height="30"/>
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False"
+                        Command="{Binding RegionSplitVCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                        Cursor="Hand" ToolTip="Vertical splited regions">
+                    <Image Source="../Images/iconButton_AddRegion_SplitVertical.png" Stretch="Uniform" Width="30" Height="30"/>
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Margin="10,0,0,0" IsTabStop="False"
+                        Command="{Binding RegionQuadCommand,  RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                        Cursor="Hand" ToolTip="Four regions">
+                    <Image Source="../Images/iconButton_AddRegion_QuadSplit.png" Stretch="Uniform" Width="30" Height="30"/>
+                </Button>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Margin="5" Command="ApplicationCommands.Copy" IsTabStop="False" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Copy">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../Images/iconButton_Copy_Hover.png" />
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Copy.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Margin="5" Command="ApplicationCommands.Paste" IsTabStop="False" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Paste">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../Images/iconButton_Paste_Hover.png" />
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Paste.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,5,0,5"/>
+
+                <Button Margin="5" Command="ApplicationCommands.Undo" IsTabStop="False" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Undo">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../Images/iconButton_Undo_Hover.png" />
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Undo.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Margin="5" Command="ApplicationCommands.Redo" IsTabStop="False" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Redo">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="../Images/iconButton_Redo_Hover.png" />
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Redo.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,5,0,5" />
+
+                <Button Margin="5" ContextMenuService.IsEnabled="False" IsTabStop="False" Click="AlignButton_Click" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Align">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+                                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="../Images/iconButton_Alignment.png" />
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Path x:Name="BtnArrow" Margin="2" VerticalAlignment="Stretch" Width="6" Fill="#FFFFFFFF" Stretch="Uniform" HorizontalAlignment="Right" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Header="Align Left" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Center" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Right" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Top" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Middle" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Bottom" Click="AlignItemButton_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </StackPanel>
+
+            <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Margin="5" Command="ApplicationCommands.Undo">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch">
+                                <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="../Images/iconButton_Copy_Hover.png" />
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock Text="Copy" Style="{StaticResource ButtonText}"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Copy.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Margin="5" Command="ApplicationCommands.Paste">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch">
+                                <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="../Images/iconButton_Paste_Hover.png" />
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock Text="Paste" Style="{StaticResource ButtonText}"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Paste.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="0,5,0,5" />
+
+                <Button Margin="5" Command="ApplicationCommands.Undo">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch">
+                                <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="../Images/iconButton_Undo_Hover.png" />
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock Text="Undo" Style="{StaticResource ButtonText}"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Undo.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Margin="5" Command="ApplicationCommands.Redo">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch">
+                                <Image Name="_image" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="../Images/iconButton_Redo_Hover.png" />
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock Text="Redo" Style="{StaticResource ButtonText}"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Source" Value="../Images/iconButton_Redo.png" TargetName="_image"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="5" />
+
+                <Button Margin="5" ContextMenuService.IsEnabled="False" Click="AlignButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Stretch">
+                                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="30" Height="30">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="../Images/iconVAlignment_Stretch.png" />
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <TextBlock Text="Align" Style="{StaticResource ButtonText}"/>
+                                </StackPanel>
+                                <Path x:Name="BtnArrow" Margin="2" VerticalAlignment="Stretch" Width="6" Fill="#FFFFFFFF" Stretch="Uniform" HorizontalAlignment="Right" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Header="Align Left" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Center" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Right" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Top" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Middle" Click="AlignItemButton_Click"/>
+                            <MenuItem Header="Align Bottom" Click="AlignItemButton_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </StackPanel>-->
+        </Grid>
+
+        <!--Panel-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <DrawingBrush TileMode="Tile" Viewport="0,0,20,20" ViewportUnits="Absolute">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing  Brush="White">
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="0,0,40,40"/>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="LightGray" Thickness="0.2"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Grid.Background>
+
+            <utilities:PixelRuler Grid.Column="1" AutoSize="True" SmallStep="100" Step="200" Zoom="{Binding ElementName=zoomSlider, Path=Value}"/>
+            <utilities:PixelRuler Grid.Row="1" AutoSize="True" SmallStep="100" Step="200" Zoom="{Binding ElementName=zoomSlider, Path=Value}">
+                <utilities:PixelRuler.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90" />
+                    </TransformGroup>
+                </utilities:PixelRuler.LayoutTransform  >
+            </utilities:PixelRuler>
+
+            <!--<Border>-->
+            <ScrollViewer Grid.Column="1" Grid.Row="1"
+                Background="Transparent"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+
+                <Canvas 
+                    x:Name="RegionCanvas"
+                    Width="{Binding Project.SelectedResolution.Width, Mode=OneWay}" 
+                    Height="{Binding Project.SelectedResolution.Height, Mode=OneWay}" 
+                    Background="{StaticResource BackgroundDark}" 
+                    PreviewMouseLeftButtonDown="RegionCanvas_PreviewMouseLeftButtonDown" 
+                    PreviewMouseLeftButtonUp="RegionCanvas_PreviewMouseLeftButtonUp" 
+                    MouseWheel="RegionCanvas_MouseWheel"
+                    AllowDrop="True"
+                    DragEnter="Canvas_DragEnter" 
+                    Drop="Canvas_Drop" 
+                    Panel.ZIndex="2">
+                    <Canvas.Resources>
+                        <Style TargetType="{x:Type Canvas}">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Canvas.Resources>
+                </Canvas>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="{StaticResource BackgroundLight}">
+                <TextBlock Foreground="{StaticResource TextColor}" FontSize="10" VerticalAlignment="Center" Margin="10,5,0,0" >
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1} x {2}) : {3}">
+                            <Binding Path="Project.SelectedRegion.Name" />
+                            <Binding Path="Project.SelectedRegion.Width" />
+                            <Binding Path="Project.SelectedRegion.Height" />
+                            <Binding Path="Project.SelectedObject.Name" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <Button Template="{StaticResource SimpleButton}" Margin="0,5,180,5" HorizontalAlignment="Right" Width="20" Height="20" Click="ZoomOutButton_Click">
+                    <Image Source="../Images/iconButton_ZoomOut.png" />
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Margin="5" HorizontalAlignment="Right" Width="20" Height="20" Click="ZoomInButton_Click">
+                    <Image Source="../Images/iconButton_ZoomIn.png" />
+                </Button>
+                <Button Template="{StaticResource SimpleButton}" Margin="0,5,205,5" HorizontalAlignment="Right" Width="20" Height="20" Click="ZoomFullButton_Click">
+                    <Image Source="../Images/iconButton_ZoomFull.png" />
+                </Button>
+                <Slider x:Name="zoomSlider" HorizontalAlignment="Right" Width="140" Margin="0,5,30,0" Value="0.25" Minimum="0.10" Maximum="1" IsSnapToTickEnabled="True" LargeChange=".05" TickFrequency="0.05" SmallChange="0.05"/>
+            </Grid>
+        </Grid>
+
+        <!--Properties-->
+        <TabControl Grid.Column="1" Grid.Row="1" SelectedIndex="0" Margin="0" Padding="0" Background="{StaticResource BackgroundNormal}" 
+                    Visibility="{Binding Project.HasSelectedRegion, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource PropertyTabItem}"/>
+            </TabControl.Resources>
+
+            <!--<TabItem Header="Regions">
+                <ListBox
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Stretch"
+                        Background="Transparent"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"  
+                        ItemsSource="{Binding Project.Regions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding Project.SelectedRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        ItemContainerStyle="{StaticResource RegionListBoxItem}"
+                        />
+            </TabItem>-->
+
+            <TabItem Header="Properties">
+                <Grid VerticalAlignment="Stretch" Background="{StaticResource BackgroundLight}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Name:" Margin="5,10,0,0"/>
+                    <TextBlock Text="Pixel Width:" Grid.Row="1" Margin="5,10,0,0"/>
+                    <TextBlock Text="Pixel Height:" Grid.Row="2" Margin="5,10,0,0"/>
+                    <TextBlock Text="Margin:" Grid.Row="3" VerticalAlignment="Center" Margin="5,10,0,0"/>
+                    <TextBox Grid.Column="1" Text="{Binding Project.SelectedRegion.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" Margin="5">
+                        <i:Interaction.Behaviors>
+                            <behaviors:TextBoxEnterKeyUpdateBehavior />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <controls:PercentageControl Grid.Column="1" Grid.Row="1" Margin="5"
+                        Value="{Binding Project.SelectedRegion.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxValue="{Binding Project.SelectedResolution.Width, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <controls:PercentageControl Grid.Column="1" Grid.Row="2" Margin="5"
+                        Value="{Binding Project.SelectedRegion.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        MaxValue="{Binding Project.SelectedResolution.Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <controls:MarginControl Grid.Column="1" Grid.Row="3"
+                        MarginX="{Binding Project.SelectedRegion.X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        MarginY="{Binding Project.SelectedRegion.Y, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        MarginW="{Binding Project.SelectedRegion.W, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        MarginZ="{Binding Project.SelectedRegion.Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxWidth="{Binding Project.SelectedResolution.Width, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        MaxHeight="{Binding Project.SelectedResolution.Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <TextBlock Text="Slide List:" Grid.Row="4" Margin="5,10,0,0" />
+                    <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Button Template="{StaticResource SimpleButton}" ToolTip="Add New Slide" Margin="5,0,5,0" Click="NewSlideButton_Click">
+                            <Image Source="../Images/iconButton_AddSlide.png" Width="20" Height="20"/>
+                        </Button>
+                        <Button Template="{StaticResource SimpleButton}" ToolTip="Move Up" Click="MoveSlideUpButton_Click">
+                            <Image Source="../Images/iconButton_MoveUp.png" Width="20" Height="20"/>
+                        </Button>
+                        <Button Template="{StaticResource SimpleButton}" ToolTip="Move Down" Margin="5,0,5,0" Click="MoveSlideDownButton_Click">
+                            <Image Source="../Images/iconButton_MoveDown.png" Width="20" Height="20"/>
+                        </Button>
+                    </StackPanel>
+
+
+                    <ListBox Grid.ColumnSpan="2" Grid.Row="5"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Stretch"
+                        Background="Transparent"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"  
+                        ItemsSource="{Binding Project.SelectedRegion.Slides, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding Project.SelectedRegion.SelectedSlide, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        ItemContainerStyle="{StaticResource SlideListBoxItem}"
+                        />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

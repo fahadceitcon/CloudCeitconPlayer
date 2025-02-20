@@ -1,0 +1,87 @@
+﻿<Window x:Class="Ceitcon_Designer.View.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ceitcon_Designer.View"
+        mc:Ignorable="d"
+        xmlns:viewModel="clr-namespace:Ceitcon_Designer.ViewModel"
+        xmlns:utilities="clr-namespace:Ceitcon_Designer.Utilities"
+        xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+        xmlns:controls="clr-namespace:Ceitcon_Designer.Controls"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        ShowInTaskbar="True"
+        WindowStyle="None"
+        Height="240" Width="400" 
+        BorderBrush="Black" 
+        BorderThickness="1"
+        Background="{StaticResource BackgroundLight}"
+        Loaded="Window_Loaded">
+
+    <Grid><!--FocusManager.FocusedElement="{Binding ElementName=userTextBox}">-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}" />
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}" />
+        </Grid.Resources>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Image Width="30" Height="30" Source="../Images/iconCeitcon.png" />
+            <TextBlock Text="Ceitcon Administrator" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource TextColor}"/>
+        </StackPanel>
+        <Button Style="{StaticResource CloseButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                Width="15" Height="15" Content="" Click="closeButton_Click" Margin="5"/>
+        <!--User/Password-->
+        <Grid Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}">
+            <TextBox x:Name="userTextBox" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="20,0,20,0" MaxLength="30"
+            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Text, Mode=TwoWay}" />
+            <TextBlock IsHitTestVisible="False" Text="Username..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0" Foreground="DarkGray">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=userTextBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+        
+        
+        <PasswordBox
+            Grid.Row="2"
+            x:Name="PasswordBox"
+            utilities:PasswordBoxHelper.Attach="True" 
+            utilities:PasswordBoxHelper.Password="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=PasswordText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Margin="20,15,20,0"
+            MaxLength="30"
+            PasswordChanged="PasswordBox_PasswordChanged"
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"
+            />
+        <TextBlock Grid.Row="2" x:Name="passwordTextBox" Text="Password..." VerticalAlignment="Center" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="30,15,0,0" Foreground="DarkGray" 
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+        <Button Grid.Row="3" Content="Change Server" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Left" Margin="20,30,20,0" Height="40" Width="140" Click="ChangeUrlButton_Click" 
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+        <Button Grid.Row="3" Content="Login" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right" Margin="20,30,20,0" Height="40" Width="140" Click="SignInButton_Click" 
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.Collapsed}}"/>
+
+         <!--Server Url-->
+        <TextBlock Grid.Row="1" Margin="20,0,20,0" FontSize="18" Text="Server IP / Server Name" 
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}"/>
+        <TextBox x:Name="tbServerUrl" Grid.Row="2" Grid.Column="1" Margin="20,15,20,0" TextAlignment="Left"
+            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=ServerUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}"/>
+
+        <Button Grid.Row="3" Content="Test &amp; Update" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right" Margin="20,30,20,0" Height="40" Width="140" Click="SetUrlButton_Click" 
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=HasUrl, Mode=OneWay, Converter={x:Static converters:BoolToVisibilityConverter.InvertedCollapsed}}"/>
+    </Grid>
+</Window>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.TickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             Margin="0">
+    <Canvas ClipToBounds="True" x:Name="canMain" Height="{Binding CurrentHeight}" Width="{Binding CurrentWidth}" Background="{Binding Background}" Margin="0">
+        <TextBlock x:Name="tbmarquee"
+            Text="{Binding Text}" 
+            Height="{Binding Height}" 
+            Width="{Binding Width}"
+            FontSize="{Binding FontSize}" 
+            Foreground="{Binding Foreground}"
+            FontFamily="{Binding FontFamily}"
+            HorizontalAlignment="{Binding HorizontalAlignment}"
+            VerticalAlignment="{Binding VerticalAlignment}"
+            FontWeight="{Binding FontWeight}"
+            FontStyle="{Binding FontStyle}"
+            TextDecorations="{Binding TextDecorations}"
+            Background="Transparent">
+        </TextBlock>
+    </Canvas>
+
+    <!--<Canvas ClipToBounds="True" x:Name="canMain" Height="{Binding CurrentHeight}" Width="{Binding CurrentWidth}" Background="{Binding Background}" Margin="0">
+        <TextBlock x:Name="tbmarquee"
+            Text="{Binding Text}" 
+            Height="{Binding Height}" 
+            Width="{Binding Width}"
+            FontSize="{Binding FontSize}" 
+            Foreground="{Binding Foreground}"
+            FontFamily="{Binding FontFamily}"
+            HorizontalAlignment="{Binding HorizontalAlignment}"
+            VerticalAlignment="{Binding VerticalAlignment}"
+            FontWeight="{Binding FontWeight}"
+            FontStyle="{Binding FontStyle}"
+            TextDecorations="{Binding TextDecorations}"
+            Background="Transparent">
+        </TextBlock>
+    </Canvas>-->
+</UserControl>

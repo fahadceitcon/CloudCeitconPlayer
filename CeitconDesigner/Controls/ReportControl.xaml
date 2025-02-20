@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.ReportControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             xmlns:view="clr-namespace:Ceitcon_Designer.View"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+            
+    </Grid>
+</UserControl>

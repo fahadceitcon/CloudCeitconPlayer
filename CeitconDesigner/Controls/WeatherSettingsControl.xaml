@@ -1,0 +1,1248 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.WeatherSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:view="clr-namespace:Ceitcon_Designer.View"
+             xmlns:model="clr-namespace:Ceitcon_Data.Model.Network;assembly=Ceitcon_Data"
+             xmlns:converters="clr-namespace:Ceitcon_Designer.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:syswincon="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+             xmlns:ncore="http://schemas.ncore.com/wpf/xaml/colorbox"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
+        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
+        <converters:BoolToIndexConverter x:Key="boolToIndexConverter" />
+        <converters:StringToFontFamilyConverter x:Key="StringToFontFamily"/>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="HorizontalAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="HorizontalAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="VerticalAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="VerticalAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="StretchEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Stretch" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type sys:Enum}" x:Key="TextAlignmentEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="TextAlignment" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type syswincon:DataGridGridLinesVisibility}" x:Key="DataGridGridLinesVisibilityEnum">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="DataGridGridLinesVisibility" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyTitleCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyDayTextCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyWeatherTextCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyHeightTextCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyHeightValueCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyLowTextCollection"/>
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="FontFamilyLowValueCollection"/>
+
+        <DataTemplate x:Key="FontFamilyTitleTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyDayTextTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyWeatherTextTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyHeightTextTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyHeightValueTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyLowTextTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="FontFamilyLowValueTemplate" DataType="FontFamily">
+            <TextBlock Text="{Binding Source}" FontSize="14" FontFamily="{Binding ., Converter={StaticResource StringToFontFamily}}" VerticalAlignment="Center"/>
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="TITLE SETTING" Margin="10,5,5,5" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.TitleIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.TitleBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.TitleBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.TitleBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.TitleCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.TitleCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.TitleForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.TitleSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyTitleTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyTitleCollection}}" 
+                          SelectedItem="{Binding Weather.TitleFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.TitleFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.TitleFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Text:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.TitleText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="350" MaxLength="100" Margin="5" TextAlignment="Left" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="DAY TEXT SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.DayTextIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.DayTextBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.DayTextBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.DayTextBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.DayTextCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.DayTextCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.DayTextForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+                
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.DayTextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyDayTextTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyDayTextCollection}}" 
+                          SelectedItem="{Binding Weather.DayTextFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.DayTextFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.DayTextFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+               
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="4" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="WEATHER TEXT SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.WeatherTextIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.WeatherTextBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.WeatherTextBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.WeatherTextBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.WeatherTextCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.WeatherTextCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.WeatherTextForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+                
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.WeatherTextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyWeatherTextTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyWeatherTextCollection}}" 
+                          SelectedItem="{Binding Weather.WeatherTextFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.WeatherTextFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.WeatherTextFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="6" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="HIGH TEXT SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.HeightTextIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightTextBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightTextBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightTextBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightTextCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightTextCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightTextForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+                
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightTextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyHeightTextTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyHeightTextCollection}}" 
+                          SelectedItem="{Binding Weather.HeightTextFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.HeightTextFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.HeightTextFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="8" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="HIGH VALUE SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+        
+        <Grid Grid.Row="9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.HeightValueIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightValueBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightValueBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightValueBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightValueCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.HeightValueCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.HeightValueForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+                
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.HeightValueSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyHeightValueTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyHeightValueCollection}}" 
+                          SelectedItem="{Binding Weather.HeightValueFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.HeightValueFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.HeightValueFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="10" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="LOW TEXT SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="11">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.LowTextIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowTextBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowTextBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowTextBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowTextCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowTextCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowTextForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowTextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyLowTextTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyLowTextCollection}}" 
+                          SelectedItem="{Binding Weather.LowTextFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.LowTextFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.LowTextFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="12" Background="{StaticResource HeaderBackground}">
+            <TextBlock Text="LOW VALUE SETTINGS" Margin="10,2,5,2" Foreground="{StaticResource HeaderForeground}"/>
+        </Grid>
+
+        <Grid Grid.Row="13">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Visible:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <CheckBox Margin="5" Width="20" IsChecked="{Binding Weather.LowValueIsVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Check to show text." HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Background:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowValueBackground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Brush:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowValueBorderBrush, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Border Tick:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowValueBorderThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Left" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueBorderThicknessTop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Top" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueBorderThicknessRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Right" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueBorderThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Bottom" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Corner:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowValueCornerRadiusTopLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopLeft" Width="40" MinWidth="0" MaxLength="3" Margin="5,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueCornerRadiusTopRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="TopRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueCornerRadiusBottomRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomRight" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Text="{Binding Weather.LowValueCornerRadiusBottomLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="BottomLeft" Width="40" MinWidth="0" MaxLength="3" Margin="0,5,1,5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Foreground:" Margin="5" Width="Auto" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ncore:ColorBox Margin="5" Brush="{Binding Weather.LowValueForeground, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                HorizontalAlignment="Left" Background="{StaticResource BackgroundLight}" Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource TextColor}">
+                    <ncore:ColorBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy" Click="CopyBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Copy_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Paste" Click="PasteBrushClick">
+                                <MenuItem.Icon>
+                                    <Image Source="../Images/iconButton_Paste_Hover.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </ncore:ColorBox.ContextMenu>
+                </ncore:ColorBox>
+
+                <TextBlock Text="Font Size:" Style="{StaticResource StandartTextBlock}" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Weather.LowValueSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" Width="30" MaxLength="3" Margin="5" TextAlignment="Right" HorizontalAlignment="Right">
+                    <i:Interaction.Behaviors>
+                        <behaviors:TextBoxEnterKeyUpdateBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Text="Font Family:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" ItemTemplate="{StaticResource FontFamilyLowValueTemplate}" ItemsSource="{Binding Source={StaticResource FontFamilyLowValueCollection}}" 
+                          SelectedItem="{Binding Weather.LowValueFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Font Weight:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Margin="5" Width="80" SelectedItem="{Binding Weather.LowValueFontWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontWeights.Bold"/>
+                    <x:Static Member="FontWeights.Heavy"/>
+                    <x:Static Member="FontWeights.Light"/>
+                    <x:Static Member="FontWeights.Medium"/>
+                    <x:Static Member="FontWeights.Normal"/>
+                    <x:Static Member="FontWeights.Thin"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text="Font Style:" Margin="5" Width="Auto" HorizontalAlignment="Left" Style="{StaticResource StandartTextBlock}" VerticalAlignment="Center"/>
+                <ComboBox Width="80" Margin="5" SelectedItem="{Binding Weather.LowValueFontStyle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left">
+                    <x:Static Member="FontStyles.Normal"/>
+                    <x:Static Member="FontStyles.Italic"/>
+                    <x:Static Member="FontStyles.Oblique"/>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.CornerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             mc:Ignorable="d">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=A, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" MaxLength="6" Width="57" TextAlignment="Right">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=B, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" MaxLength="6" Width="57" TextAlignment="Right">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=C, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" MaxLength="6" Width="57" TextAlignment="Right">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=D, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N0}}" MaxLength="6" Width="57" TextAlignment="Right">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Image Grid.Row="1" Grid.Column="1" Source="../Images/iconProperties_Corner.png" Width="45" Height="20" Margin="5"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Ceitcon_Designer.Controls.DurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:Ceitcon_Designer.Behaviors"
+             xmlns:local="clr-namespace:Ceitcon_Designer.Controls"
+             mc:Ignorable="d">
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Button Template="{StaticResource SimpleButton}" Click="hUpButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Up.png" Width="20" Height="20" VerticalAlignment="Bottom"/>
+        </Button>
+        <Button Grid.Column="1" Template="{StaticResource SimpleButton}" Click="mUpButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Up.png" Width="20" Height="20" VerticalAlignment="Bottom"/>
+        </Button>
+        <Button  Grid.Column="2" Template="{StaticResource SimpleButton}" Click="sUpButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Up.png" Width="20" Height="20" VerticalAlignment="Bottom"/>
+        </Button>
+        <TextBox Grid.Row="1" Grid.ColumnSpan="3" Width="74" MaxLength="8" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Duration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh}:{0:mm}:{0:ss}, FallbackValue=00:00:00}">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Button Grid.Row="2" Template="{StaticResource SimpleButton}" Click="hDwButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Down.png" Width="20" Height="20" VerticalAlignment="Top"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Template="{StaticResource SimpleButton}" Click="mDwButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Down.png" Width="20" Height="20" VerticalAlignment="Top"/>
+        </Button>
+        <Button Grid.Row="2"  Grid.Column="2" Template="{StaticResource SimpleButton}" Click="sDwButton_Click" IsTabStop="False">
+            <Image Source="../Images/iconButton_Down.png" Width="20" Height="20" VerticalAlignment="Top"/>
+        </Button>
+        <StackPanel Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center">
+            <CheckBox Margin="10,5,0,0" IsChecked="{Binding Forever, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"/>
+            <TextBlock Text="Forever" FontSize="10"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
