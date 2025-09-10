@@ -18,8 +18,12 @@ namespace TestConsole
                 sSe = "0" + sSe;
 
             string sTime = DateTime.Now.TimeOfDay.Hours.ToString() + ":" + sM;
+            string sInput = System.IO.File.ReadAllText("C:\\Users\\Ceitcon-Dev\\Downloads\\Modon_HQ.cdp");
+            string sResult = Crypt.Decrypt(sInput);
 
             Console.ReadLine();
+
+
         }
 
         static void DeleteOldRecords()

@@ -1152,6 +1152,37 @@ namespace Ceitcon_Downloader
             }
         }
 
+        static void KillPopUp()
+        {
+            try
+            {
+                string name = "popup";
+                log.Info($"PopUp Name:{name}");
+                //var d = Process.GetProcessesByName(name);
+                string sPath = ConfigurationManager.AppSettings["PopUpPath"];
+                log.Info($"PopUpPath:{sPath}");
+                foreach (var process in Process.GetProcessesByName(name))
+                {
+                    log.Info("Found Process: " + process.ProcessName);
+                    string sModuleFilePath = process.MainModule.FileName.Trim().ToLower();
+                    log.Info($"process.MainModule.FileName:{sModuleFilePath}");
+                    log.Info($"process.MainModule.FileName:{sPath.Trim().ToLower()}");
+                    if (sPath.Trim().ToLower() == sModuleFilePath)
+                    {
+                        log.Info($"Killing :{name}");
+                        Console.WriteLine($"Killing :{name}");
+                        process.Kill();
+                        log.Info($"Killed :{name}");
+                        Console.WriteLine($"Killed :{name}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Info($"Killing Error:{ex.Message}");
+            }
+        }
+
         static void ClearLogs(int days)
         {
             try
@@ -1386,6 +1417,8 @@ namespace Ceitcon_Downloader
                 connection.On<List<string>, string, string, DateTime, int>("SendToAllPlayers", SendToAllPlayers);
                 connection.On<List<string>>("RestartAllPlayers", RestartAllPlayers);
                 connection.On<List<string>, string, string, int, int, int>("SendAlertToAllPlayers", SendAlertToAllPlayers);
+                connection.On<List<string>, string, string, int, int, int>("StartFireAlertToAllPlayers", StartFireAlertToAllPlayers);
+                connection.On<List<string>>("StopFireAlertToAllPlayers", StopFireAlertToAllPlayers);
                 await connection.StartAsync();
                 Console.WriteLine("Connected to RealTime Server");
                 log.Info("Connected to RealTime Server");
@@ -1417,6 +1450,7 @@ namespace Ceitcon_Downloader
 
             }
         }
+        //For Global Alert
         private static void SendToAllPlayers(List<string> sPlayerName, string sType, string sData, DateTime StartDateTime, int DuraitonInSeconds)
         {
             try
@@ -1812,8 +1846,88 @@ namespace Ceitcon_Downloader
                 log.Info($"Error in SendAlertToAllPlayers:{ex.Message}");
             }
         }
-        #endregion
+        private static void StartFireAlertToAllPlayers(List<string> sPlayerName, string sMediaURL, string sTextMessage, int DuraitonInSeconds, int Width, int Height)
+        {
+            try
+            {
+                if (sPlayerName == null) // Which mean All Players
+                {
+                    log.Info($"StartFireAlertToAllPlayers I am included");
+                    string sPath = ConfigurationManager.AppSettings["PopUpPath"];
+                    Process process = new Process();
+                    ProcessStartInfo info = new ProcessStartInfo(sPath, "\"" + sMediaURL + "\" " + DuraitonInSeconds + "  " + Height + " " + Width);
+                    log.Info("File Path: " + info.FileName + " Argument: " + info.Arguments);
+                    process.StartInfo = info;
+                    process.Start();
+                    log.Info($"StartFireAlertToAllPlayers Method Called with Parameter from Server sPlayerName:" + sPlayerName[0] + " sMediaURL: " + sMediaURL + " sTextMessage: " + sTextMessage + " DurationInSeconds: " + DuraitonInSeconds + " Width: " + Width + " Height: " + Height);
+                }
+                else
+                {
+                    string _playerexits = sPlayerName.SingleOrDefault(p => p == PlayerName);
+                    Console.WriteLine($"StartFireAlertToAllPlayers Method Called with Parameter from Server sPlayerName:" + sPlayerName[0] + " sMediaURL: " + sMediaURL + " sTextMessage: " + sTextMessage + " DurationInSeconds: " + DuraitonInSeconds + " Width: " + Width + " Height: " + Height);
+                    if (_playerexits == null || _playerexits == "")
+                    {
+                        log.Info($"StartFireAlertToAllPlayers Not for me");
+                        return;
+                    }
+                    else
+                    {
+                        log.Info($"StartFireAlertToAllPlayers I am included");
+                        string sPath = ConfigurationManager.AppSettings["PopUpPath"];
+                        Process process = new Process();
+                        //ProcessStartInfo info = new ProcessStartInfo(sPath, "\"" + sMediaURL + "\" \"" + sTextMessage + "\" 20 "
+                        //    + DuraitonInSeconds + "  " + Height + " " + Width);
+                        ProcessStartInfo info = new ProcessStartInfo(sPath, "\"" + sMediaURL + "\" " + DuraitonInSeconds + "  " + Height + " " + Width);
+                        log.Info("File Path: " + info.FileName + " Argument: " + info.Arguments);
+                        process.StartInfo = info;
+                        process.Start();
+                        log.Info($"StartFireAlertToAllPlayers Method Called with Parameter from Server sPlayerName:" + sPlayerName[0] + " sMediaURL: " + sMediaURL + " sTextMessage: " + sTextMessage + " DurationInSeconds: " + DuraitonInSeconds + " Width: " + Width + " Height: " + Height);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in StartFireAlertToAllPlayers:{ex.Message}");
+                log.Info($"Error in StartFireAlertToAllPlayers:{ex.Message}");
+            }
+        }
+        private static void StopFireAlertToAllPlayers(List<string> sPlayerName)
+        {
+            try
+            {
+                log.Info($"StopFireAlertToAllPlayers Received from the RealTime Server");
+                Console.WriteLine($"StopFireAlertToAllPlayers Received from the RealTime Server");
+                string _playerexits = sPlayerName.SingleOrDefault(p => p == PlayerName);
+                if (sPlayerName == null) // Which mean All Players
+                {
+                    log.Info($"StopFireAlertToAllPlayers I am included");
+                    Console.WriteLine($"StopFireAlertToAllPlayers I am included");
+                    KillPopUp();
+                    log.Info($"Close the PopUp");
+                    Console.WriteLine($"Close the PopUp");
+                }
+                else
+                {
+                    if (_playerexits == null || _playerexits == "")
+                    {
+                        log.Info($"StopFireAlertToAllPlayers Not for me");
+                        return;
+                    }
+                    else
+                    {
+                        log.Info($"StopFireAlertToAllPlayers I am included");
+                        KillPopUp();
+                        log.Info($"Stopped the Popup");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("RestartAllPlayers", ex);
 
+            }
+        }
+        #endregion
 
         /*
         #region [SignalR Variables Declearation]
