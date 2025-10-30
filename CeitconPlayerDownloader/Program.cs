@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using log4net.Repository.Hierarchy;
+using System.Web;
 
 namespace Ceitcon_Downloader
 {
@@ -41,7 +42,7 @@ namespace Ceitcon_Downloader
         static string HostName = String.Empty;
         static string IpAddress = String.Empty;
         static string ServerIP = String.Empty;//"192.168.0.1(localhost)" Or Server Host Name 
-        static int ServerPort = 8000;
+        static int ServerPort = 6070;
         static string mediaText = "Media";
         static string dataFileName = "FID.xml";
         static string weatherFileName = "_Weather.xml";
@@ -57,7 +58,7 @@ namespace Ceitcon_Downloader
         #region Properties
         static string GetServerUrl()
         {
-            return String.Format(@"http://{0}:{1}/CeitconServer/service", ServerIP, ServerPort);
+            return String.Format(@"http://{0}:{1}", ServerIP, ServerPort);
             //return String.Format(@"http://{0}:8733/Design_Time_Addresses/CeitconServer/Service1/", serverUrl);
         }
         #endregion
@@ -240,6 +241,7 @@ namespace Ceitcon_Downloader
             //=================== Get Online Player Name ================
             if (!string.IsNullOrEmpty(PlayerName))
             {
+                CeitconServerHelper.LoadToken();
                 string response = CeitconServerHelper.GetPlayerNameInfo(PlayerName, HostName, IpAddress);
                 log.Info($"1. GetPlayerNameInfo Response:{response}");
 
@@ -339,6 +341,48 @@ namespace Ceitcon_Downloader
             //=================== Player Name =======================
             if (String.IsNullOrEmpty(PlayerName))
             {
+                Console.WriteLine("Please insert Organization name and press Enter key: ");
+                string sOrganizationName = Console.ReadLine();
+                Console.WriteLine("Please insert Password and press Enter key: ");
+                string sPassword = Console.ReadLine();
+                while (true)
+                {
+                    if (String.IsNullOrEmpty(sOrganizationName))
+                    {
+                        Console.WriteLine(String.Format("Empty Organization name, please try again:"));
+                        sOrganizationName = Console.ReadLine();
+                        continue;
+                    }
+                    if (String.IsNullOrEmpty(sOrganizationName))
+                    {
+                        Console.WriteLine(String.Format("Empty Password, please try again:"));
+                        sPassword = Console.ReadLine();
+                        continue;
+                    }
+                    CeitconToken token = CeitconServerHelper.LogIn(sOrganizationName, sPassword);
+                    if (token.ouid == -1)
+                    {
+                        Console.WriteLine(String.Format("Error Authenticating Organization and Password, please try again:"));
+                        continue;
+                    }
+                    else if (token.ouid == 0)
+                    {
+                        Console.WriteLine(String.Format("Error Authenticating Organization and Password, please try again:"));
+                        continue;
+                    }
+                    else
+                    {
+                        SQLiteHelper.Instance.UpdateApplication("OrganizationID", CeitconServerHelper.OrganizationID.ToString());
+                        SQLiteHelper.Instance.UpdateApplication("OrganizationName", sOrganizationName);
+                        SQLiteHelper.Instance.UpdateApplication("Password", sPassword);
+                        SQLiteHelper.Instance.UpdateApplication("Token", token.token);
+                        SQLiteHelper.Instance.UpdateApplication("TokenExpiry", token.expiry.ToString());
+                        SQLiteHelper.Instance.UpdateApplication("TokenExpiryDate", token.expirydate.ToString());
+                        break;
+                    }
+                }
+
+
                 Console.WriteLine("Please insert Player name and press Enter key: ");
                 while (true)
                 {
@@ -390,6 +434,7 @@ namespace Ceitcon_Downloader
             else
             {
                 GetIPAddress();
+                //CeitconServerHelper.RefreshToken();
                 if (!CeitconServerHelper.CheckPlayerExist(PlayerName, HostName, IpAddress, licence))
                 {
                     Console.WriteLine(String.Format("Player is already registered on another IPAddress"));
@@ -428,6 +473,12 @@ namespace Ceitcon_Downloader
 
                 try
                 {
+                    //Refresh Token Here
+                    if (DateTime.Now > CeitconServerHelper.PlayerToken.expirydate.AddMinutes(-5))
+                    {
+                        CeitconServerHelper.RefreshToken();
+                    }
+
                     Console.WriteLine(String.Format("Checking for new project... {0}", DateTime.Now));
 
                     #region "Restart Player"

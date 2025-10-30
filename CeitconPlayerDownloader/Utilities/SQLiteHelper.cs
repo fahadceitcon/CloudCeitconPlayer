@@ -4,7 +4,6 @@ using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
 using System.Text;
-
 namespace Ceitcon_Downloader.Utilities
 {
     [Obfuscation(Feature = "Apply to member * when method or constructor: virtualization", Exclude = false)]
@@ -42,13 +41,17 @@ namespace Ceitcon_Downloader.Utilities
                     var sb = new StringBuilder();
                     sb.Append("CREATE TABLE Application (Name VARCHAR(30) PRIMARY KEY, Value TEXT NOT NULL);");
                     sb.Append("CREATE TABLE MQTT (Id INTEGER PRIMARY KEY AUTOINCREMENT, Topic VARCHAR(100), Message TEXT);");
-
                     sb.Append("INSERT INTO Application (Name, Value) values ('Name', 'Ceitcon Downloader');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Version', '1');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Server', '');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Player', '');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Media', '');");
-
+                    sb.Append("INSERT INTO Application (Name, Value) values ('OrganizationID', '');");
+                    sb.Append("INSERT INTO Application (Name, Value) values ('OrganizationName', '');");                    
+                    sb.Append("INSERT INTO Application (Name, Value) values ('Password', '');");
+                    sb.Append("INSERT INTO Application (Name, Value) values ('Token', '');");
+                    sb.Append("INSERT INTO Application (Name, Value) values ('TokenExpiry', '');");
+                    sb.Append("INSERT INTO Application (Name, Value) values ('TokenExpiryDate', '');");
                     m_dbConnection.Open();
                     using (SQLiteCommand command = new SQLiteCommand(sb.ToString(), m_dbConnection))
                     {
@@ -204,5 +207,6 @@ namespace Ceitcon_Downloader.Utilities
             return result;
         }
         #endregion
+
     }
 }
