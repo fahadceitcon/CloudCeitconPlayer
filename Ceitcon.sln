@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadProjects", "UploadProjects\UploadProjects.csproj", "{DDF62DEA-266E-480A-949E-1FC44791DF90}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CeitconSignageSetup", "CeitconSignageSetup\CeitconSignageSetup.vdproj", "{E5A1D874-D308-1DDC-C185-777EB8DD64E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -197,6 +199,12 @@ Global
 		{DDF62DEA-266E-480A-949E-1FC44791DF90}.Release|x64.Build.0 = Release|Any CPU
 		{DDF62DEA-266E-480A-949E-1FC44791DF90}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDF62DEA-266E-480A-949E-1FC44791DF90}.Release|x86.Build.0 = Release|Any CPU
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Debug|Any CPU.ActiveCfg = Debug
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Debug|x64.ActiveCfg = Debug
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Debug|x86.ActiveCfg = Debug
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Release|Any CPU.ActiveCfg = Release
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Release|x64.ActiveCfg = Release
+		{E5A1D874-D308-1DDC-C185-777EB8DD64E9}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,7 +24,10 @@
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource StandartTextBlock}"/>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StandartTextBox}"/>
         <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StandartScrollBar}"/>
-
+        <Style TargetType="CheckBox">
+            <EventSetter Event="Checked" Handler="CheckBox_Checked"/>
+            <EventSetter Event="Unchecked" Handler="CheckBox_Unchecked"/>
+        </Style>
         <!--Region List Box Item-->
         <Style x:Key="RegionListBoxItem" TargetType="{x:Type ListBoxItem}">
             <EventSetter Event="PreviewGotKeyboardFocus" Handler="SelectCurrentItem"/>
@@ -102,7 +105,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Schedule:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>
-                                <CheckBox Margin="10,5,0,0" IsChecked="{Binding EnableSchedule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                                <CheckBox Margin="10,5,0,0" IsChecked="{Binding EnableSchedule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False"  />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Start Date:" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" Margin="5" Width="70"/>

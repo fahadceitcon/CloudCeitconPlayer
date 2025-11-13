@@ -37,6 +37,7 @@ namespace Ceitcon_Downloader
         static TimeSpan StatusInterval = new TimeSpan(0, 0, 30);
         static string[] WeatherLocation;
         static string MediaDirectory = String.Empty;
+        static decimal PlayerID = 0;
         static string PlayerName = String.Empty;
         static string PlayerGroup = "Player Group";
         static string HostName = String.Empty;
@@ -130,7 +131,7 @@ namespace Ceitcon_Downloader
                 }
                 else
                 {
-                    ConnectToSignalR();
+                    // ConnectToSignalR();
 
                     if (!updateStatusStarted)
                         StartStatusConnection();
@@ -163,6 +164,7 @@ namespace Ceitcon_Downloader
             log.Info("Loading Server name...");
             ServerIP = SQLiteHelper.Instance.GetApplication("Server");
             PlayerName = SQLiteHelper.Instance.GetApplication("Player");
+            PlayerID = Convert.ToDecimal(SQLiteHelper.Instance.GetApplication("PlayerID"));
             log.Info(String.Format("ServerIP: {0}", ServerIP));
             if (String.IsNullOrEmpty(ServerIP))
             {
@@ -349,13 +351,13 @@ namespace Ceitcon_Downloader
                 {
                     if (String.IsNullOrEmpty(sOrganizationName))
                     {
-                        Console.WriteLine(String.Format("Empty Organization name, please try again:"));
+                        Console.WriteLine(String.Format("Please insert Organization name and Press Enter: "));
                         sOrganizationName = Console.ReadLine();
                         continue;
                     }
-                    if (String.IsNullOrEmpty(sOrganizationName))
+                    if (String.IsNullOrEmpty(sPassword))
                     {
-                        Console.WriteLine(String.Format("Empty Password, please try again:"));
+                        Console.WriteLine(String.Format("Please insert Password and press Enter key: "));
                         sPassword = Console.ReadLine();
                         continue;
                     }
@@ -363,6 +365,8 @@ namespace Ceitcon_Downloader
                     if (token.ouid == -1)
                     {
                         Console.WriteLine(String.Format("Error Authenticating Organization and Password, please try again:"));
+                        sOrganizationName = string.Empty;
+                        sPassword = string.Empty;
                         continue;
                     }
                     else if (token.ouid == 0)
@@ -416,9 +420,11 @@ namespace Ceitcon_Downloader
                     GetIPAddress();
                     if (CeitconServerHelper.RegistratePlayer(PlayerName, HostName, IpAddress, screens, defaultlic, 1))
                     {
+                        PlayerID = CeitconServerHelper.CheckPlayerID(PlayerName);
                         playerStatus = 1;
                         log.Info($"359:playerText:{playerText}, PlayerName:{PlayerName}");
                         SQLiteHelper.Instance.UpdateApplication(playerText, PlayerName);
+                        SQLiteHelper.Instance.UpdateApplication("PlayerID", PlayerID.ToString());
                         Console.WriteLine("Player is registred");
                         log.Info("Player is registred");
                     }
@@ -539,7 +545,8 @@ namespace Ceitcon_Downloader
 
                     log.Info(String.Format("Checking for new project... {0}", DateTime.Now));
 
-                    string scheduler = CeitconServerHelper.GetSceduler(PlayerName);
+                    //string scheduler = CeitconServerHelper.GetSceduler(PlayerName);
+                    string scheduler = CeitconServerHelper.GetScedulerByPlayerID(PlayerID);
                     //string scheduler = @"Network/Domain/Country/Region/Location Group/Location/Floor/Zone/Player Group,b465b133-a1b8-4bd5-a66b-02508031bdc0.cdp,3,2017-09-30 00:00:00,2017-10-01 00:00:00";
                     if (!String.IsNullOrEmpty(scheduler) && scheduler.Length > 150)
                     {
@@ -817,7 +824,8 @@ namespace Ceitcon_Downloader
             try
             {
                 GetIPAddress();
-                string response = CeitconServerHelper.GetPlayerName(HostName, IpAddress);
+                //string response = CeitconServerHelper.GetPlayerName(HostName, IpAddress);
+                string response = CeitconServerHelper.GetPlayerNameByPlayerID(PlayerID, HostName, IpAddress);
                 if (response == "Error")
                 {
                     Console.WriteLine("Problem with connection on server...");
@@ -893,8 +901,10 @@ namespace Ceitcon_Downloader
             {
                 playerStatus = 4;
                 PlayerName = String.Empty;
+                PlayerID = 0;
                 log.Info($"691:playerText:{playerText}, PlayerName:{PlayerName}");
                 SQLiteHelper.Instance.UpdateApplication(playerText, PlayerName);
+                SQLiteHelper.Instance.UpdateApplication("PlayerID", PlayerID.ToString());
                 KillProcess(PlayerProcessName); // Kill player
                 canDownload = false; // Paussed downloading
                 Console.WriteLine("Player is unregistred from server");
@@ -1104,6 +1114,8 @@ namespace Ceitcon_Downloader
             Process process = null;
             try
             {
+                if (Process.GetProcessesByName(PlayerProcessName).Count() > 0)
+                    return;
                 process = new Process();
                 ProcessStartInfo info = new ProcessStartInfo(path, "");
                 process.StartInfo = info;

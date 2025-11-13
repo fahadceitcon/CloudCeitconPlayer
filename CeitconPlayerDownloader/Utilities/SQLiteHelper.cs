@@ -44,6 +44,7 @@ namespace Ceitcon_Downloader.Utilities
                     sb.Append("INSERT INTO Application (Name, Value) values ('Name', 'Ceitcon Downloader');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Version', '1');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Server', '');");
+                    sb.Append("INSERT INTO Application (Name, Value) values ('PlayerID', '0');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Player', '');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('Media', '');");
                     sb.Append("INSERT INTO Application (Name, Value) values ('OrganizationID', '');");

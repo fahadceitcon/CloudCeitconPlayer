@@ -210,6 +210,30 @@ namespace Ceitcon_Downloader.Utilities
             }
             return result;
         }
+        public static string GetScedulerByPlayerID(decimal playerid)
+        {
+            string result = String.Empty;
+            try
+            {
+                var options = new RestClientOptions(Address)
+                {
+                    Timeout = TimeSpan.FromMinutes(5)
+                };
+                var restClient = new RestClient(options);
+                var request = new RestRequest("/api/Player/GetScedulerByPlayerID/" + playerid + "/" + OrganizationID, Method.Get);
+                request.AddHeader("Authorization", "Bearer " + PlayerToken.token);
+                RestResponse response = restClient.Execute(request);
+                if (!String.IsNullOrWhiteSpace(response.Content))
+                    result = response.Content;
+                result = result.Replace("\"", "");
+                result = result.Replace("\\", "");
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            return result;
+        }
         public static bool Download(string fromPath, string toPath)
         {
             try
@@ -337,6 +361,32 @@ namespace Ceitcon_Downloader.Utilities
             }
             return result;
         }
+        public static decimal CheckPlayerID(string name)
+        {
+            decimal result = 0;
+            try
+            {
+                string sResult = string.Empty;
+                var options = new RestClientOptions(Address)
+                {
+                    Timeout = TimeSpan.FromMinutes(5)
+                };
+                var restClient = new RestClient(options);
+                var request = new RestRequest("/api/Player/CheckPlayerID/" + name + "/" + OrganizationID, Method.Get);
+                request.AddHeader("Authorization", "Bearer " + PlayerToken.token);
+                RestResponse response = restClient.Execute(request);
+                if (!String.IsNullOrWhiteSpace(response.Content))
+                    sResult = response.Content.ToString();
+                sResult = sResult.Replace("\"", "");
+                result = Convert.ToDecimal(sResult);
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                return -1;
+            }
+            return result;
+        }
         public static bool CheckPlayerExist(string name, string hostName, string ipAddress, int licence)
         {
             bool result = false;
@@ -401,6 +451,32 @@ namespace Ceitcon_Downloader.Utilities
                 };
                 var restClient = new RestClient(options);
                 var request = new RestRequest("/api/Player/GetPlayerName?hostName=" + hostName + "&ipAddress=" + ipAddress + "&organizationID=" + OrganizationID, Method.Post);
+                request.AddHeader("Authorization", "Bearer " + PlayerToken.token);
+                RestResponse response = restClient.Execute(request);
+                if (!String.IsNullOrWhiteSpace(response.Content))
+                    sResult = response.Content.ToString();
+                sResult = sResult.Replace("\"", "");
+                result = sResult;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                return "Error";
+            }
+            return result;
+        }
+        public static string GetPlayerNameByPlayerID(decimal playerid, string hostName, string ipAddress)
+        {
+            string result = String.Empty;
+            try
+            {
+                string sResult = string.Empty;
+                var options = new RestClientOptions(Address)
+                {
+                    Timeout = TimeSpan.FromMinutes(5)
+                };
+                var restClient = new RestClient(options);
+                var request = new RestRequest("/api/Player/GetPlayerNameByPlayerID?playerid=" + playerid + "&hostName=" + hostName + "&ipAddress=" + ipAddress + "&organizationID=" + OrganizationID, Method.Post);
                 request.AddHeader("Authorization", "Bearer " + PlayerToken.token);
                 RestResponse response = restClient.Execute(request);
                 if (!String.IsNullOrWhiteSpace(response.Content))
