@@ -1,15 +1,11 @@
 ﻿using Ceitcon_Downloader.CeitconServerService;
 using log4net;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Configuration;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Reflection;
-using System.ServiceModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace Ceitcon_Downloader.Utilities
 {
